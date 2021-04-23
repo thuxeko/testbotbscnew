@@ -29,7 +29,7 @@ def getToken(update: Update, context: CallbackContext) -> None:
     #     update.message.reply_text("Sai câu lệnh")
     print(update.message)
     print(update.message.from_user['id'])
-    update.message.delete()
+    # update.message.delete()
     url_delete = 'tg://user?id={userid} \nTest'.format(userid = update.message.from_user['id'])
     update.message.reply_text(url_delete)
 
