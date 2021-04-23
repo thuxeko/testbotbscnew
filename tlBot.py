@@ -36,8 +36,7 @@ def getToken(update: Update, context: CallbackContext) -> None:
     mesoutbybot = bot.send_message(chat_id=update.effective_message.chat_id,
                      text=userMes, parse_mode='MarkdownV2')
     print(mesoutbybot)
-    
-    # update.message.delete()
+    update.message.delete()
 
 def getContract(update: Update, context: CallbackContext) -> None:
     token = update.message.text.replace('/ct', '').strip()
