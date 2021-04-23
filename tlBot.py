@@ -4,10 +4,10 @@ from telegram.ext import Updater, CommandHandler, MessageHandler, Filters, Callb
 import os
 import logging
 
-#Config
+# Config
 from tlConfig.credentials import bot_token, URL
 
-#Include
+# Include
 import checkbsc
 
 TOKEN = bot_token
@@ -20,6 +20,7 @@ logging.basicConfig(
 
 logger = logging.getLogger(__name__)
 
+
 def getToken(update: Update, context: CallbackContext) -> None:
     # token = update.message.text.replace('/p','').strip()
     # if token:
@@ -28,11 +29,15 @@ def getToken(update: Update, context: CallbackContext) -> None:
     #     update.message.delete()
     # else:
     #     update.message.reply_text("Sai câu lệnh")
-    update.message.delete()
-    bot.send_message(chat_id=update.effective_message.chat_id,text="Test")
+    userMes = '[{username}](tg://user?id={id_user}) \nTest'.format(
+        username=update.message.from_user['first_name'], id_user=update.message.from_user['id'])
+    # update.message.delete()
+    bot.send_message(chat_id=update.effective_message.chat_id,
+                     text=userMes, parse_mode='MarkdownV2')
+
 
 def getContract(update: Update, context: CallbackContext) -> None:
-    token = update.message.text.replace('/ct','').strip()
+    token = update.message.text.replace('/ct', '').strip()
     if token:
         strOut = checkbsc.getTokenWithSymbol(token, 2)
         update.message.reply_text(strOut)
@@ -40,11 +45,15 @@ def getContract(update: Update, context: CallbackContext) -> None:
     else:
         update.message.reply_text("Sai câu lệnh")
 
+
 def infoBot(update: Update, context: CallbackContext) -> None:
-    update.message.reply_text('Em chào anh, nhà em 3 đời làm bot 🤖, hiện tại bot này nhà em có: \n/p - Nhập mã Token để lấy thông tin \n/ct - Nhập mã Token để lấy Contract\n/info - Gọi em ra để dooddeed nè')
+    update.message.reply_text(
+        'Em chào anh, nhà em 3 đời làm bot 🤖, hiện tại bot này nhà em có: \n/p - Nhập mã Token để lấy thông tin \n/ct - Nhập mã Token để lấy Contract\n/info - Gọi em ra để dooddeed nè')
+
 
 def error(update: Update, context: CallbackContext) -> None:
     update.message.reply_text(update.message.text)
+
 
 def main():
     """Start the bot."""
@@ -66,6 +75,7 @@ def main():
 
     updater.bot.set_webhook(URL + TOKEN)
     updater.idle()
+
 
 if __name__ == '__main__':
     main()
