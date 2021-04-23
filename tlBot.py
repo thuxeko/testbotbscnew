@@ -28,9 +28,9 @@ def getToken(update: Update, context: CallbackContext) -> None:
     # else:
     #     update.message.reply_text("Sai câu lệnh")
     print(update.message)
+    print(update.message.from_user)
     update.message.delete()
-    url_delete = 'tg://user?id={userid} \nhttps://api.telegram.org/bot1574629803:AAE8FgoEOn4IidjdbkLT_lZOKscr1UGLhIo/deleteMessage?chat_id={chatid}&message_id={mesid}'.format(mesid=update.message.message_id, chatid=update.message.chat['id'],userid = update.message.from_user.id)
-    update.message.reply_text(url_delete)
+    # url_delete = 'tg://user?id={userid} \nhttps://api.telegram.org/bot1574629803:AAE8FgoEOn4IidjdbkLT_lZOKscr1UGLhIo/deleteMessage?chat_id={chatid}&message_id={mesid}'.format(mesid=update.message.message_id, chatid=update.message.chat['id'],userid = update.message.from_user.id)
 
 def getContract(update: Update, context: CallbackContext) -> None:
     token = update.message.text.replace('/ct','').strip()
