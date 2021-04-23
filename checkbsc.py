@@ -39,7 +39,7 @@ def getTokenWithSymbol(symbol, typeCm, username, userid):
             bnb_symbol = '1 BNB = {total} {symbol}'.format(
                 symbol=filterValues[0]['symbol'], total=totalin1bnb)
 
-            strOut = 'Gửi sếp [{user}](tg://user?id={id_user}) \n{namesymbol} \n{priceusd} \n{pricebnb} \n \n{total1usd} \n{total1bnb} \n \n{pancake} \n{poo}'.format(
+            strOut = '<a href="tg://user?id={id_user}">Gửi sếp {user}</a> \n{namesymbol} \n{priceusd} \n{pricebnb} \n \n{total1usd} \n{total1bnb} \n \n{pancake} \n{poo}'.format(
                 namesymbol=token_symbol, priceusd=symbol_usd, pricebnb=symbol_bnb, symbol=filterValues[0]['symbol'], pancake=pancakeLink, poo=pooChart, total1usd=usd_symbol, total1bnb=bnb_symbol, user=username, id_user = userid)
 
             return strOut
