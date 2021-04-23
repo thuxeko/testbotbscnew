@@ -20,13 +20,14 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 def getToken(update: Update, context: CallbackContext) -> None:
-    token = update.message.text.replace('/p','').strip()
-    if token:
-        strOut = checkbsc.getTokenWithSymbol(token, 1)
-        update.message.reply_html(strOut)
-        update.message.delete()
-    else:
-        update.message.reply_text("Sai câu lệnh")
+    # token = update.message.text.replace('/p','').strip()
+    # if token:
+    #     strOut = checkbsc.getTokenWithSymbol(token, 1)
+    #     update.message.reply_html(strOut)
+    #     update.message.delete()
+    # else:
+    #     update.message.reply_text("Sai câu lệnh")
+    print(update.message)
 
 def getContract(update: Update, context: CallbackContext) -> None:
     token = update.message.text.replace('/ct','').strip()
