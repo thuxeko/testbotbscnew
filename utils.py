@@ -29,6 +29,11 @@ def updateChat(mesid: int, chatid: int, time: int):
         data.append(objAdd)
         save_delete_file(data)
 
+def readOldChat():
+    with open('delete_save.json', 'r') as dl_file:
+        data = json.loads(dl_file)
+        print(data)
+
 
 # def updateTime():
 #     global timen
