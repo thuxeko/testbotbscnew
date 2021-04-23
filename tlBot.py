@@ -31,8 +31,9 @@ def getToken(update: Update, context: CallbackContext) -> None:
     print(update.message.from_user['id'])
     id_user = update.message.from_user['id']
     
-    url_delete = '<a href="tg://user?id={user}">Thu</a> \nTest'.format(user = id_user)
-    update.message.reply_text(url_delete)
+    url_delete = 'Test'
+    update.message.reply_html(url_delete)
+    print(update.message)
     # update.message.delete()
 
 def getContract(update: Update, context: CallbackContext) -> None:
