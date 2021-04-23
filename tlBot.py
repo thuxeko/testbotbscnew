@@ -29,13 +29,15 @@ def getToken(update: Update, context: CallbackContext) -> None:
     #     update.message.delete()
     # else:
     #     update.message.reply_text("Sai câu lệnh")
+    print(update.message)
     userMes = '[{username}](tg://user?id={id_user}) \nTest'.format(
         username=update.message.from_user['first_name'], id_user=update.message.from_user['id'])
     
     bot.send_message(chat_id=update.effective_message.chat_id,
                      text=userMes, parse_mode='MarkdownV2')
-     
-    update.message.delete()
+    
+    print(bot._message)
+    # update.message.delete()
 
 def getContract(update: Update, context: CallbackContext) -> None:
     token = update.message.text.replace('/ct', '').strip()
