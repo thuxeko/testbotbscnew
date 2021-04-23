@@ -30,8 +30,10 @@ def getToken(update: Update, context: CallbackContext) -> None:
         # update.message.reply_html(strOut)
         mesoutbybot = bot.send_message(chat_id=update.effective_message.chat_id,
                                        text=strOut, parse_mode='MarkdownV2')
-        utils.updateChat(
-            mesoutbybot['message_id'], mesoutbybot['chat']['id'], mesoutbybot['chat']['timeß'])
+        
+        print('Message ID Bot: ' + mesoutbybot['message_id'] + ' - Chat ID Bot: ' + mesoutbybot['chat']['id'])
+        # utils.updateChat(
+        #     mesoutbybot['message_id'], mesoutbybot['chat']['id'], mesoutbybot['chat']['timeß'])
         update.message.delete()
     else:
         update.message.reply_text("Sai câu lệnh")
