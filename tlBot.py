@@ -53,9 +53,9 @@ def getToken(update: Update, context: CallbackContext) -> None:
         mesoutbybot = bot.send_message(chat_id=update.effective_message.chat_id,
                                        text=userMes, parse_mode='MarkdownV2')
 
-        dt = datetime.datetime(mesoutbybot.date)
-        print(mesoutbybot.date)
-        print(time.mktime(dt.timetuple))
+        # dt = datetime.datetime(mesoutbybot.date)
+        print(type(mesoutbybot.date))
+        # print(time.mktime(dt.timetuple))
     except Exception as e:
         print(e)
 
