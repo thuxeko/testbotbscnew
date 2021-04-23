@@ -24,6 +24,7 @@ def getToken(update: Update, context: CallbackContext) -> None:
     if token:
         strOut = checkbsc.getTokenWithSymbol(token, 1)
         update.message.reply_html(strOut)
+        update.message.delete()
     else:
         update.message.reply_text("Sai câu lệnh")
 
@@ -31,8 +32,8 @@ def getContract(update: Update, context: CallbackContext) -> None:
     token = update.message.text.replace('/ct','').strip()
     if token:
         strOut = checkbsc.getTokenWithSymbol(token, 2)
-        update.message.delete()
         update.message.reply_text(strOut)
+        update.message.delete()
     else:
         update.message.reply_text("Sai câu lệnh")
 
