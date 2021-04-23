@@ -19,7 +19,7 @@ logging.basicConfig(
 
 logger = logging.getLogger(__name__)
 
-def getToken(update: Update, context: CallbackContext) -> None:
+def getToken(bot: Bot ,update: Update, context: CallbackContext) -> None:
     # token = update.message.text.replace('/p','').strip()
     # if token:
     #     strOut = checkbsc.getTokenWithSymbol(token, 1)
@@ -27,7 +27,7 @@ def getToken(update: Update, context: CallbackContext) -> None:
     #     update.message.delete()
     # else:
     #     update.message.reply_text("Sai câu lệnh")
-    print(update.inline_query)
+    bot.send_message(chat_id=update.effective_message.chat_id,text="Test")
 
 def getContract(update: Update, context: CallbackContext) -> None:
     token = update.message.text.replace('/ct','').strip()
@@ -47,6 +47,7 @@ def error(update: Update, context: CallbackContext) -> None:
 def main():
     """Start the bot."""
     updater = Updater(TOKEN, use_context=True)
+    bot = Bot(TOKEN)
 
     dp = updater.dispatcher
 
