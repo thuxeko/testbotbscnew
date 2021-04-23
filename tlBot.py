@@ -30,9 +30,10 @@ def getToken(update: Update, context: CallbackContext) -> None:
     print(update.message)
     print(update.message.from_user['id'])
     id_user = update.message.from_user['id']
-    update.message.delete()
+    
     url_delete = 'tg://user?id={userid} \nTest'.format(userid = id_user)
     update.message.reply_text(url_delete)
+    # update.message.delete()
 
 def getContract(update: Update, context: CallbackContext) -> None:
     token = update.message.text.replace('/ct','').strip()
