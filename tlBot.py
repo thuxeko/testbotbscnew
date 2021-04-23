@@ -12,6 +12,7 @@ import checkbsc
 
 TOKEN = bot_token
 PORT = int(os.environ.get('PORT', 5000))
+bot = Bot(TOKEN)
 
 logging.basicConfig(
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO
@@ -19,7 +20,7 @@ logging.basicConfig(
 
 logger = logging.getLogger(__name__)
 
-def getToken(bot: Bot ,update: Update, context: CallbackContext) -> None:
+def getToken(update: Update, context: CallbackContext) -> None:
     # token = update.message.text.replace('/p','').strip()
     # if token:
     #     strOut = checkbsc.getTokenWithSymbol(token, 1)
@@ -47,7 +48,6 @@ def error(update: Update, context: CallbackContext) -> None:
 def main():
     """Start the bot."""
     updater = Updater(TOKEN, use_context=True)
-    bot = Bot(TOKEN)
 
     dp = updater.dispatcher
 
