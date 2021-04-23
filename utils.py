@@ -4,10 +4,6 @@ import schedule
 import random
 import time
 
-# list_save = []
-timen = 1619163800
-
-
 def delete_oldTime():
     with open('delete_save.json', 'r') as dl_file:
         data = json.loads(dl_file)
@@ -21,31 +17,30 @@ def save_delete_file(lstsave):
         json.dump(lstsave, data_file)
 
 
-def updateChat():
+def updateChat(mesid, chatid, time):
     with open('delete_save.json', 'r') as data_file:
         data = json.load(data_file)
-        n = random.randint(1, 200)
         objAdd = {
-            "message_id": n,
-            "chat_id": -1001166673188,
-            "time": timen
+            "message_id": mesid,
+            "chat_id": chatid,
+            "time": time
         }
 
         data.append(objAdd)
         save_delete_file(data)
 
 
-def updateTime():
-    global timen
-    ntime = random.randint(10, 50)
-    timen += ntime
-    print(timen)
+# def updateTime():
+#     global timen
+#     ntime = random.randint(10, 50)
+#     timen += ntime
+#     print(timen)
 
 
-schedule.every(15).seconds.do(updateChat)
-schedule.every(10).seconds.do(updateTime)
+# schedule.every(15).seconds.do(updateChat)
+# schedule.every(10).seconds.do(updateTime)
 
-if __name__ == '__main__':
-    while True:
-        schedule.run_pending()
-        time.sleep(1)
+# if __name__ == '__main__':
+#     while True:
+#         schedule.run_pending()
+#         time.sleep(1)

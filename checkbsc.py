@@ -2,7 +2,7 @@ import requests
 import json
 
 
-def getTokenWithSymbol(symbol, typeCm):
+def getTokenWithSymbol(symbol, typeCm, username, userid):
     urlRequest = 'https://api.pancakeswap.info/api/tokens'
     data = requests.get(urlRequest)
     res = json.loads(data.text.encode('utf8').decode('utf8'))
@@ -39,8 +39,8 @@ def getTokenWithSymbol(symbol, typeCm):
             bnb_symbol = '1 BNB = {total} {symbol}'.format(
                 symbol=filterValues[0]['symbol'], total=totalin1bnb)
 
-            strOut = '{namesymbol} \n{priceusd} \n{pricebnb} \n \n{total1usd} \n{total1bnb} \n \n{pancake} \n{poo}'.format(
-                namesymbol=token_symbol, priceusd=symbol_usd, pricebnb=symbol_bnb, symbol=filterValues[0]['symbol'], pancake=pancakeLink, poo=pooChart, total1usd=usd_symbol, total1bnb=bnb_symbol)
+            strOut = 'Gửi sếp [{user}](tg://user?id={id_user}) \n{namesymbol} \n{priceusd} \n{pricebnb} \n \n{total1usd} \n{total1bnb} \n \n{pancake} \n{poo}'.format(
+                namesymbol=token_symbol, priceusd=symbol_usd, pricebnb=symbol_bnb, symbol=filterValues[0]['symbol'], pancake=pancakeLink, poo=pooChart, total1usd=usd_symbol, total1bnb=bnb_symbol, user=username, id_user = userid)
 
             return strOut
         elif typeCm == 2:

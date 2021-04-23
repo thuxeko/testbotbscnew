@@ -9,6 +9,7 @@ from tlConfig.credentials import bot_token, URL
 
 # Include
 import checkbsc
+import utils
 
 TOKEN = bot_token
 PORT = int(os.environ.get('PORT', 5000))
@@ -22,27 +23,34 @@ logger = logging.getLogger(__name__)
 
 
 def getToken(update: Update, context: CallbackContext) -> None:
-    # token = update.message.text.replace('/p','').strip()
-    # if token:
-    #     strOut = checkbsc.getTokenWithSymbol(token, 1)
-    #     update.message.reply_html(strOut)
-    #     update.message.delete()
-    # else:
-    #     update.message.reply_text("Sai câu lệnh")
-    print(update.message)
-    userMes = '[{username}](tg://user?id={id_user}) \nTest'.format(
-        username=update.message.from_user['first_name'], id_user=update.message.from_user['id'])
-    
-    mesoutbybot = bot.send_message(chat_id=update.effective_message.chat_id,
-                     text=userMes, parse_mode='MarkdownV2')
-    print('Message ID Bot: ' + mesoutbybot['message_id'] + ' - Chat ID Bot: ' + mesoutbybot['chat']['id'])
+    token = update.message.text.replace('/p', '').strip()
+    if token:
+        strOut = checkbsc.getTokenWithSymbol(
+            token, 1, update.message.from_user['first_name'], update.message.from_user['id'])
+        # update.message.reply_html(strOut)
+        mesoutbybot = bot.send_message(chat_id=update.effective_message.chat_id,
+                                       text=strOut, parse_mode='MarkdownV2')
+        utils.updateChat(
+            mesoutbybot['message_id'], mesoutbybot['chat']['id'], mesoutbybot['chat']['timeß'])
+        update.message.delete()
+    else:
+        update.message.reply_text("Sai câu lệnh")
+    # print(update.message)
+    # userMes = '[{username}](tg://user?id={id_user}) \nTest'.format(
+    #     username=update.message.from_user['first_name'], id_user=update.message.from_user['id'])
 
-    update.message.delete()
+    # mesoutbybot = bot.send_message(chat_id=update.effective_message.chat_id,
+    #                  text=userMes, parse_mode='MarkdownV2')
+    # print('Message ID Bot: ' + mesoutbybot['message_id'] + ' - Chat ID Bot: ' + mesoutbybot['chat']['id'])
+
+    # update.message.delete()
+
 
 def getContract(update: Update, context: CallbackContext) -> None:
     token = update.message.text.replace('/ct', '').strip()
     if token:
-        strOut = checkbsc.getTokenWithSymbol(token, 2)
+        strOut = checkbsc.getTokenWithSymbol(
+            token, 2, update.message.from_user['first_name'], update.message.from_user['id'])
         update.message.reply_text(strOut)
         update.message.delete()
     else:
