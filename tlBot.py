@@ -28,7 +28,7 @@ def getToken(update: Update, context: CallbackContext) -> None:
     # else:
     #     update.message.reply_text("Sai câu lệnh")
     print(update.message)
-    print('Message ID: ' + update.message.message_id + ' - Chat ID: '  + update.message.chat_id)
+    update.message.reply_text('Message ID: ' + update.message.message_id + ' - Chat ID: '  + update.message.chat_id)
 
 def getContract(update: Update, context: CallbackContext) -> None:
     token = update.message.text.replace('/ct','').strip()
