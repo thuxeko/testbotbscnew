@@ -1,5 +1,5 @@
 # Lib
-from telegram import Update
+from telegram import Update, Bot
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters, CallbackContext
 import os
 import logging
@@ -29,7 +29,7 @@ def getToken(update: Update, context: CallbackContext) -> None:
     #     update.message.reply_text("Sai câu lệnh")
     print(update.message)
     print(update.message.chat['id'])
-    print(update.message.message_id)
+    update.message.delete()
 
 def getContract(update: Update, context: CallbackContext) -> None:
     token = update.message.text.replace('/ct','').strip()
