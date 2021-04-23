@@ -28,6 +28,7 @@ def getToken(update: Update, context: CallbackContext) -> None:
     #     update.message.delete()
     # else:
     #     update.message.reply_text("Sai câu lệnh")
+    update.message.delete()
     bot.send_message(chat_id=update.effective_message.chat_id,text="Test")
 
 def getContract(update: Update, context: CallbackContext) -> None:
