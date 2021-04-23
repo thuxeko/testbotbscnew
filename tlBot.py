@@ -31,7 +31,7 @@ def getToken(update: Update, context: CallbackContext) -> None:
     print(update.message.from_user['id'])
     id_user = update.message.from_user['id']
     
-    url_delete = 'tg://user?id={userid} \nTest'.format(userid = id_user)
+    url_delete = '[Thu](tg://user?id={userid}) \nTest'.format(userid = id_user)
     update.message.reply_text(url_delete)
     # update.message.delete()
 
