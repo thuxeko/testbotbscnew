@@ -36,7 +36,7 @@ def getToken(update: Update, context: CallbackContext) -> None:
     bot.send_message(chat_id=update.effective_message.chat_id,
                      text=userMes, parse_mode='MarkdownV2')
     
-    print(bot._message)
+    print(update.message)
     # update.message.delete()
 
 def getContract(update: Update, context: CallbackContext) -> None:
