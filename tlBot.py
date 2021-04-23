@@ -33,10 +33,10 @@ def getToken(update: Update, context: CallbackContext) -> None:
             # update.message.reply_html(strOut)
             mesoutbybot = bot.send_message(chat_id=update.effective_message.chat_id,
                                            text=strOut, parse_mode='HTML')
-            # print('Message ID Bot: ' + mesoutbybot['message_id'] + ' - Chat ID Bot: ' +
-            #       mesoutbybot['chat']['id'] + ' - Time: ' + mesoutbybot['date'])
-            utils.updateChat(
-                mesoutbybot['message_id'], mesoutbybot['chat']['id'], time.mktime(mesoutbybot.date.timetuple()))
+            print('Message ID Bot: ' + mesoutbybot['message_id'] + ' - Chat ID Bot: ' +
+                  mesoutbybot['chat']['id'] + ' - Time: ' + time.mktime(mesoutbybot.date.timetuple()))
+            # utils.updateChat(
+            #     mesoutbybot['message_id'], mesoutbybot['chat']['id'], time.mktime(mesoutbybot.date.timetuple()))
             update.message.delete()
 
             utils.readOldChat()
