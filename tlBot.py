@@ -27,14 +27,7 @@ def getToken(update: Update, context: CallbackContext) -> None:
     #     update.message.delete()
     # else:
     #     update.message.reply_text("Sai câu lệnh")
-    print(update.message)
-    print(update.message.from_user['id'])
-    id_user = update.message.from_user['id']
-    
-    url_delete = 'Test'
-    update.message.reply_html(url_delete)
-    print(update.message)
-    # update.message.delete()
+    print(update.inline_query)
 
 def getContract(update: Update, context: CallbackContext) -> None:
     token = update.message.text.replace('/ct','').strip()
