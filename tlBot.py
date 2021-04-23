@@ -54,8 +54,8 @@ def getToken(update: Update, context: CallbackContext) -> None:
                                        text=userMes, parse_mode='MarkdownV2')
 
         # dt = datetime.datetime(mesoutbybot.date)
-        print(type(mesoutbybot.date))
-        # print(time.mktime(dt.timetuple))
+        print(mesoutbybot.date)
+        print(time.mktime(mesoutbybot.date.timetuple()))
     except Exception as e:
         print(e)
 
