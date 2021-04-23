@@ -3,6 +3,8 @@ from telegram import Update, Bot
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters, CallbackContext
 import os
 import logging
+import datetime
+import time
 
 # Config
 from tlConfig.credentials import bot_token, URL
@@ -44,12 +46,18 @@ def getToken(update: Update, context: CallbackContext) -> None:
     # else:
     #     update.message.reply_text("Sai câu lệnh")
     # print(update.message)
-    userMes = '[{username}](tg://user?id={id_user}) \nTest'.format(
-        username=update.message.from_user['first_name'], id_user=update.message.from_user['id'])
+    try:
+        userMes = '[{username}](tg://user?id={id_user}) \nTest'.format(
+            username=update.message.from_user['first_name'], id_user=update.message.from_user['id'])
 
-    mesoutbybot = bot.send_message(chat_id=update.effective_message.chat_id,
-                                   text=userMes, parse_mode='MarkdownV2')
-    print(mesoutbybot.date)
+        mesoutbybot = bot.send_message(chat_id=update.effective_message.chat_id,
+                                       text=userMes, parse_mode='MarkdownV2')
+
+        dt = datetime.datetime(mesoutbybot.date)
+        print(mesoutbybot.date)
+        print(time.mktime(dt.timetuple))
+    except Exception as e:
+        print(e)
 
 
 def getContract(update: Update, context: CallbackContext) -> None:
