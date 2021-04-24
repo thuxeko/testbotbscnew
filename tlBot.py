@@ -25,7 +25,6 @@ logger = logging.getLogger(__name__)
 
 def getToken(update: Update, context: CallbackContext) -> None:
     token = update.message.text.replace('/p', '').strip()
-    
     if token:
         try:
             strOut = checkbsc.getTokenWithSymbol(
@@ -34,13 +33,14 @@ def getToken(update: Update, context: CallbackContext) -> None:
             mesoutbybot = bot.send_message(chat_id=update.effective_message.chat_id,
                                            text=strOut, parse_mode='HTML')
             print(update.message)
+            update.message.delete()
             typeChat = mesoutbybot['chat']['supergroup']
             if typeChat == typeGroup:
                 cvTime = int(time.mktime(mesoutbybot.date.timetuple()))
                 utils.updateChat(
                     mesoutbybot['message_id'], mesoutbybot['chat']['id'], cvTime)
 
-            update.message.delete()
+            
         except Exception as e:
             print(e)
 
