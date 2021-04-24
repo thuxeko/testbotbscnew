@@ -33,15 +33,12 @@ def getToken(update: Update, context: CallbackContext) -> None:
             # update.message.reply_html(strOut)
             mesoutbybot = bot.send_message(chat_id=update.effective_message.chat_id,
                                            text=strOut, parse_mode='HTML')
-            
-            
-            #Check lại time.mktime kia có phải int không, convert thành int để lưu vào json
+
+            # Check lại time.mktime kia có phải int không, convert thành int để lưu vào json
             cvTime = int(time.mktime(mesoutbybot.date.timetuple()))
-            print(type(cvTime))
-            print(type(mesoutbybot['message_id']))
-            print(type(mesoutbybot['chat']['id']))
-            # print('Message ID Bot: ' + mesoutbybot['message_id'] + ' - Chat ID Bot: ' +
-            #       mesoutbybot['chat']['id'] + ' - Time: ' + cvTime)
+            tOut = 'Message ID Bot: {mesid} - Chat ID Bot: {chatid} - Time: {time}'.format(
+                mesid=mesoutbybot['message_id'], chatid=mesoutbybot['chat']['id'], time=cvTime)
+            print(tOut)
             # utils.updateChat(
             #     mesoutbybot['message_id'], mesoutbybot['chat']['id'], cvTime)
             # update.message.delete()
