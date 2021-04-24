@@ -38,9 +38,10 @@ def getToken(update: Update, context: CallbackContext) -> None:
             #Check lại time.mktime kia có phải int không, convert thành int để lưu vào json
             cvTime = int(time.mktime(mesoutbybot.date.timetuple()))
             print(type(cvTime))
-            print(cvTime)
-            print('Message ID Bot: ' + mesoutbybot['message_id'] + ' - Chat ID Bot: ' +
-                  mesoutbybot['chat']['id'] + ' - Time: ' + cvTime)
+            print(type(mesoutbybot['message_id']))
+            print(type(mesoutbybot['chat']['id']))
+            # print('Message ID Bot: ' + mesoutbybot['message_id'] + ' - Chat ID Bot: ' +
+            #       mesoutbybot['chat']['id'] + ' - Time: ' + cvTime)
             # utils.updateChat(
             #     mesoutbybot['message_id'], mesoutbybot['chat']['id'], cvTime)
             # update.message.delete()
