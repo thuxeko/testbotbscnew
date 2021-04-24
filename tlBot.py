@@ -25,6 +25,7 @@ logger = logging.getLogger(__name__)
 
 def getToken(update: Update, context: CallbackContext) -> None:
     token = update.message.text.replace('/p', '').strip()
+    
     if token:
         try:
             strOut = checkbsc.getTokenWithSymbol(

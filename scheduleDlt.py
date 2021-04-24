@@ -29,12 +29,12 @@ def dltChat():
                 for x in lst_dlt:
                     bot_delete = bot.delete_message(
                         chat_id=x['chat_id'], message_id=x['message_id'])
+                    print(bot_delete)
+                    # print('Delete message id: {mesid}'.format(mesid=x['message_id']))
+                    # if not bot_delete:
+                    #     lst_save.append(x)
 
-                    print('Delete message id: {mesid}'.format(mesid=x['message_id']))
-                    if not bot_delete:
-                        lst_save.append(x)
-
-            utils.save_delete_file(lst_save)
+            # utils.save_delete_file(lst_save)
     except Exception as e:
         print(e)
 
