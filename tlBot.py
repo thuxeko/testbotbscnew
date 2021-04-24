@@ -39,10 +39,10 @@ def getToken(update: Update, context: CallbackContext) -> None:
             tOut = 'Message ID Bot: {mesid} - Chat ID Bot: {chatid} - Time: {time}'.format(
                 mesid=mesoutbybot['message_id'], chatid=mesoutbybot['chat']['id'], time=cvTime)
             print(tOut)
-            # utils.updateChat(
-            #     mesoutbybot['message_id'], mesoutbybot['chat']['id'], cvTime)
-            # update.message.delete()
-            # utils.readOldChat()
+            utils.updateChat(
+                mesoutbybot['message_id'], mesoutbybot['chat']['id'], cvTime)
+            update.message.delete()
+            utils.readOldChat()
         except Exception as e:
             print(e)
 
