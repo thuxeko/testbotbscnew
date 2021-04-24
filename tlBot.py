@@ -67,9 +67,9 @@ def error(update: Update, context: CallbackContext) -> None:
 
 
 def main():
-    while True:
-        schedule.run_pending()
-        time.sleep(1)
+    # while True:
+    #     schedule.run_pending()
+    #     time.sleep(1)
 
     """Start the bot."""
     updater = Updater(TOKEN, use_context=True)
