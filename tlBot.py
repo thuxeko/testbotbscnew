@@ -100,18 +100,21 @@ if __name__ == '__main__':
 
 
 def dltChat() -> None:
-    lst_Old = utils.readOldChat()
-    time_now = int(time.time())
+    try:
+        lst_Old = utils.readOldChat()
+        time_now = int(time.time())
 
-    lst_dlt = list(filter(lambda x: x["time"] <= time_now, lst_Old))
-    lst_save = list(filter(lambda x: x["time"] > time_now, lst_Old))
+        lst_dlt = list(filter(lambda x: x["time"] <= time_now, lst_Old))
+        lst_save = list(filter(lambda x: x["time"] > time_now, lst_Old))
 
-    for x in lst_dlt:
-        bot_delete = bot.delete_message(
-            chat_id=x.chat_id, message_id=x.message_id)
-        print(bot_delete)
-    
-    utils.save_delete_file(lst_save)
+        for x in lst_dlt:
+            bot_delete = bot.delete_message(
+                chat_id=x.chat_id, message_id=x.message_id)
+            print(bot_delete)
+
+        utils.save_delete_file(lst_save)
+    except Exception as e:
+        print(e)
 
 
 schedule.every(15).seconds.do(dltChat)
