@@ -93,15 +93,17 @@ def main():
                               cert='cert.pem',
                               webhook_url=URL + TOKEN)
         updater.idle()
+
+        while True:
+            schedule.run_pending()
+            time.sleep(1)
     except Exception as e:
         print(e)
 
 
 if __name__ == '__main__':
     main()
-    while True:
-        schedule.run_pending()
-        time.sleep(1)
+    
 
 # region Schedule
 
