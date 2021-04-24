@@ -15,7 +15,7 @@ import checkbsc
 import utils
 
 TOKEN = bot_token
-PORT = int(os.environ.get('PORT', 5000))
+PORT = int(os.environ.get('PORT', 8443))
 bot = Bot(TOKEN)
 
 logging.basicConfig(
