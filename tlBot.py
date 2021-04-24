@@ -92,6 +92,9 @@ def main():
 if __name__ == '__main__':
     main()
 
+    schedule.run_pending()
+    time.sleep(1)
+
 #region Schedule
 def dltChat():
     timeNow = time.time()
@@ -99,7 +102,7 @@ def dltChat():
 
 schedule.every(15).seconds.do(dltChat)
 
-while True:
-    schedule.run_pending()
-    time.sleep(1)
+# while True:
+#     schedule.run_pending()
+#     time.sleep(1)
 #endreiong
