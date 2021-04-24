@@ -39,7 +39,6 @@ def getToken(update: Update, context: CallbackContext) -> None:
             utils.updateChat(
                 mesoutbybot['message_id'], mesoutbybot['chat']['id'], cvTime)
             update.message.delete()
-            utils.readOldChat()
         except Exception as e:
             print(e)
 
