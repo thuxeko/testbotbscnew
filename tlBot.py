@@ -93,15 +93,15 @@ def main():
 if __name__ == '__main__':
     main()
 
-    # schedule.run_pending()
-    # time.sleep(1)
+    schedule.run_pending()
+    time.sleep(1)
 
 # region Schedule
-# def dltChat():
-#     timeNow = time.time()
-#     print(int(timeNow))
+def dltChat():
+    timeNow = time.time()
+    print(int(timeNow))
 
-# schedule.every(15).seconds.do(dltChat)
+schedule.every(15).seconds.do(dltChat)
 
 # while True:
 #     schedule.run_pending()
