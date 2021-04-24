@@ -17,7 +17,7 @@ def save_delete_file(lstsave):
         json.dump(lstsave, data_file)
 
 
-def updateChat(mesid: int, chatid: int, time: int):
+def updateChat(mesid, chatid, time):
     with open('delete_save.json', 'r') as data_file:
         data = json.load(data_file)
         objAdd = {

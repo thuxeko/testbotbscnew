@@ -39,8 +39,8 @@ def getToken(update: Update, context: CallbackContext) -> None:
             cvTime = int(time.mktime(mesoutbybot.date.timetuple()))
             print(type(cvTime))
             print(cvTime)
-            # print('Message ID Bot: ' + mesoutbybot['message_id'] + ' - Chat ID Bot: ' +
-            #       mesoutbybot['chat']['id'] + ' - Time: ' + cvTime)
+            print('Message ID Bot: ' + mesoutbybot['message_id'] + ' - Chat ID Bot: ' +
+                  mesoutbybot['chat']['id'] + ' - Time: ' + cvTime)
             # utils.updateChat(
             #     mesoutbybot['message_id'], mesoutbybot['chat']['id'], cvTime)
             # update.message.delete()
