@@ -99,27 +99,26 @@ def main():
 
 
 if __name__ == '__main__':
-    try:
-        main()
-    except Exception as e:
-        print(e)   
+    main()  
 
 # region Schedule
 def dltChat():
     try:
-        with open('delete_save.json', 'r') as dl_file:
-            data = json.load(dl_file)
-            time_now = int(time.time())
+        time_now = int(time.time())
+        print(time_now)
+        # with open('delete_save.json', 'r') as dl_file:
+        #     data = json.load(dl_file)
+        #     time_now = int(time.time())
 
-            lst_dlt = list(filter(lambda x: x["time"] <= time_now, data))
-            lst_save = list(filter(lambda x: x["time"] > time_now, data))
+        #     lst_dlt = list(filter(lambda x: x["time"] <= time_now, data))
+        #     lst_save = list(filter(lambda x: x["time"] > time_now, data))
 
-            for x in lst_dlt:
-                bot_delete = bot.delete_message(
-                    chat_id=x.chat_id, message_id=x.message_id)
-                print(bot_delete)
+        #     for x in lst_dlt:
+        #         bot_delete = bot.delete_message(
+        #             chat_id=x.chat_id, message_id=x.message_id)
+        #         print(bot_delete)
 
-            utils.save_delete_file(lst_save)
+        #     utils.save_delete_file(lst_save)
     except Exception as e:
         print(e)
 
