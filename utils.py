@@ -1,8 +1,4 @@
 import json
-from datetime import date, datetime
-# import schedule
-import random
-import time
 
 def delete_oldTime():
     with open('delete_save.json', 'r') as dl_file:
@@ -33,20 +29,3 @@ def readOldChat():
     with open('delete_save.json', 'r') as dl_file:
         data = json.load(dl_file)
         print(data)
-
-
-# def updateTime():
-#     global timen
-#     ntime = random.randint(10, 50)
-#     timen += ntime
-#     print(timen)
-
-
-# schedule.every(15).seconds.do(updateChat)
-# schedule.every(10).seconds.do(updateTime)
-
-# if __name__ == '__main__':
-#     updateChat(114,-1991166673188,1618235963)
-    # while True:
-    #     schedule.run_pending()
-    #     time.sleep(1)
