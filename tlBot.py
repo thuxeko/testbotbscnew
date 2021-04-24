@@ -34,11 +34,13 @@ def getToken(update: Update, context: CallbackContext) -> None:
                                            text=strOut, parse_mode='HTML')
             print(update.message)
             update.message.delete()
-            typeChat = mesoutbybot['chat']['supergroup']
+            typeChat = mesoutbybot['chat']['type']
             if typeChat == typeGroup:
                 cvTime = int(time.mktime(mesoutbybot.date.timetuple()))
                 utils.updateChat(
                     mesoutbybot['message_id'], mesoutbybot['chat']['id'], cvTime)
+                botdel = bot.delete_message(chat_id=-1001166673188,message_id=159)
+                print(botdel)
 
             
         except Exception as e:
