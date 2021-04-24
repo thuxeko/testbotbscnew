@@ -34,7 +34,7 @@ def getToken(update: Update, context: CallbackContext) -> None:
 
             mesoutbybot = bot.send_message(chat_id=update.effective_message.chat_id,
                                            text=strOut, parse_mode='HTML')
-
+            print(update.message)
             cvTime = int(time.mktime(mesoutbybot.date.timetuple()))
             utils.updateChat(
                 mesoutbybot['message_id'], mesoutbybot['chat']['id'], cvTime)
@@ -67,6 +67,10 @@ def error(update: Update, context: CallbackContext) -> None:
 
 
 def main():
+    while True:
+        schedule.run_pending()
+        time.sleep(1)
+
     """Start the bot."""
     updater = Updater(TOKEN, use_context=True)
 
@@ -93,13 +97,11 @@ if __name__ == '__main__':
     main()
 
 # region Schedule
+
+
 def dltChat():
     timeNow = time.time()
     print(int(timeNow))
 
 schedule.every(15).seconds.do(dltChat)
-
-while True:
-    schedule.run_pending()
-    time.sleep(1)
 # endreiong
