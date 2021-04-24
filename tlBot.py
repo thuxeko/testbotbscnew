@@ -75,6 +75,7 @@ def main():
     while True:
         schedule.run_pending()
         time.sleep(1)
+    
     """Start the bot."""
     updater = Updater(TOKEN, use_context=True)
 
@@ -98,11 +99,12 @@ def main():
 
 
 if __name__ == '__main__':
-    main()
+    try:
+        main()
+    except Exception as e:
+        print(e)   
 
 # region Schedule
-
-
 def dltChat():
     try:
         with open('delete_save.json', 'r') as dl_file:
