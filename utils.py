@@ -1,6 +1,6 @@
 import json
 from datetime import date, datetime
-import schedule
+# import schedule
 import random
 import time
 
@@ -31,7 +31,7 @@ def updateChat(mesid, chatid, time):
 
 def readOldChat():
     with open('delete_save.json', 'r') as dl_file:
-        data = json.loads(dl_file)
+        data = json.load(dl_file)
         print(data)
 
 
@@ -46,6 +46,7 @@ def readOldChat():
 # schedule.every(10).seconds.do(updateTime)
 
 # if __name__ == '__main__':
-#     while True:
-#         schedule.run_pending()
-#         time.sleep(1)
+#     updateChat(114,-1991166673188,1618235963)
+    # while True:
+    #     schedule.run_pending()
+    #     time.sleep(1)
