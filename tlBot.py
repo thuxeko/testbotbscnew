@@ -15,7 +15,7 @@ import checkbsc
 import utils
 
 TOKEN = bot_token
-PORT = int(os.environ.get('PORT', 8443))
+# PORT = int(os.environ.get('PORT', 8443))
 bot = Bot(TOKEN)
 
 logging.basicConfig(
@@ -82,7 +82,7 @@ def main():
 
     # Webhook start bot
     updater.start_webhook(listen="0.0.0.0",
-                          port=PORT,
+                          port=8443,
                           url_path=TOKEN)
 
     updater.bot.set_webhook(URL + TOKEN)
@@ -92,15 +92,15 @@ def main():
 if __name__ == '__main__':
     main()
 
-    schedule.run_pending()
-    time.sleep(1)
+    # schedule.run_pending()
+    # time.sleep(1)
 
 #region Schedule
-def dltChat():
-    timeNow = time.time()
-    print(int(timeNow))
+# def dltChat():
+#     timeNow = time.time()
+#     print(int(timeNow))
 
-schedule.every(15).seconds.do(dltChat)
+# schedule.every(15).seconds.do(dltChat)
 
 # while True:
 #     schedule.run_pending()
