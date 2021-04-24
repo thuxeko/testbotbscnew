@@ -30,15 +30,11 @@ def getToken(update: Update, context: CallbackContext) -> None:
         try:
             strOut = checkbsc.getTokenWithSymbol(
                 token, 1, update.message.from_user['first_name'], update.message.from_user['id'])
-            # update.message.reply_html(strOut)
+
             mesoutbybot = bot.send_message(chat_id=update.effective_message.chat_id,
                                            text=strOut, parse_mode='HTML')
 
-            # Check lại time.mktime kia có phải int không, convert thành int để lưu vào json
-            cvTime = int(time.mktime(mesoutbybot.date.timetuple()))
-            tOut = 'Message ID Bot: {mesid} - Chat ID Bot: {chatid} - Time: {time}'.format(
-                mesid=mesoutbybot['message_id'], chatid=mesoutbybot['chat']['id'], time=cvTime)
-            print(tOut)
+            cvTime = int(time.mktime(mesoutbybot.date.timetuple()))            
             utils.updateChat(
                 mesoutbybot['message_id'], mesoutbybot['chat']['id'], cvTime)
             update.message.delete()
