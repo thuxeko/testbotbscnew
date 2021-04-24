@@ -30,8 +30,8 @@ def dltChat():
                     bot_delete = bot.delete_message(
                         chat_id=x['chat_id'], message_id=x['message_id'])
 
-                    if bot_delete:
-                        print('Delete message id: ' + x['message_id'])
+                    print('Delete message id: {mesid}'.format(mesid=x['message_id']))
+                    if not bot_delete:
                         lst_save.append(x)
 
             utils.save_delete_file(lst_save)
