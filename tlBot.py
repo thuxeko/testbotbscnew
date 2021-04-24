@@ -72,55 +72,60 @@ def error(update: Update, context: CallbackContext) -> None:
 
 
 def main():
-    while True:
-        schedule.run_pending()
-        time.sleep(1)
-    
-    """Start the bot."""
-    updater = Updater(TOKEN, use_context=True)
+    try:
+        while True:
+            schedule.run_pending()
+            time.sleep(1)
 
-    dp = updater.dispatcher
+        """Start the bot."""
+        updater = Updater(TOKEN, use_context=True)
 
-    dp.add_handler(CommandHandler("p", getToken))
-    dp.add_handler(CommandHandler("ct", getContract))
-    dp.add_handler(CommandHandler("info", infoBot))
+        dp = updater.dispatcher
 
-    # Log error
-    dp.add_error_handler(error)
+        dp.add_handler(CommandHandler("p", getToken))
+        dp.add_handler(CommandHandler("ct", getContract))
+        dp.add_handler(CommandHandler("info", infoBot))
 
-    # Webhook start bot
-    updater.start_webhook(listen="0.0.0.0",
-                          port=8443,
-                          url_path=TOKEN,
-                          key='private.key',
-                          cert='cert.pem',
-                          webhook_url=URL + TOKEN)
-    updater.idle()
+        # Log error
+        dp.add_error_handler(error)
+
+        # Webhook start bot
+        updater.start_webhook(listen="0.0.0.0",
+                              port=8443,
+                              url_path=TOKEN,
+                              key='private.key',
+                              cert='cert.pem',
+                              webhook_url=URL + TOKEN)
+        updater.idle()
+    except Exception as e:
+        print(e)
 
 
 if __name__ == '__main__':
-    main()  
+    main()
 
 # region Schedule
+
+
 def dltChat():
-    try:
-        time_now = int(time.time())
-        print(time_now)
-        # with open('delete_save.json', 'r') as dl_file:
-        #     data = json.load(dl_file)
-        #     time_now = int(time.time())
+    time_now = int(time.time())
+    print(time_now)
+    # try:
+    #     with open('delete_save.json', 'r') as dl_file:
+    #         data = json.load(dl_file)
+    #         time_now = int(time.time())
 
-        #     lst_dlt = list(filter(lambda x: x["time"] <= time_now, data))
-        #     lst_save = list(filter(lambda x: x["time"] > time_now, data))
+    #         lst_dlt = list(filter(lambda x: x["time"] <= time_now, data))
+    #         lst_save = list(filter(lambda x: x["time"] > time_now, data))
 
-        #     for x in lst_dlt:
-        #         bot_delete = bot.delete_message(
-        #             chat_id=x.chat_id, message_id=x.message_id)
-        #         print(bot_delete)
+    #         for x in lst_dlt:
+    #             bot_delete = bot.delete_message(
+    #                 chat_id=x.chat_id, message_id=x.message_id)
+    #             print(bot_delete)
 
-        #     utils.save_delete_file(lst_save)
-    except Exception as e:
-        print(e)
+    #         utils.save_delete_file(lst_save)
+    # except Exception as e:
+    #     print(e)
 
 
 schedule.every(15).seconds.do(dltChat)
