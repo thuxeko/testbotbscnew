@@ -99,7 +99,7 @@ if __name__ == '__main__':
 # region Schedule
 
 
-def dltChat() -> None:
+def dltChat():
     try:
         lst_Old = utils.readOldChat()
         time_now = int(time.time())
