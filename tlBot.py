@@ -35,7 +35,6 @@ def getToken(update: Update, context: CallbackContext) -> None:
             print(update.message)
             typeChat = mesoutbybot['chat']['supergroup']
             if typeChat == typeGroup:
-                print(typeChat)
                 cvTime = int(time.mktime(mesoutbybot.date.timetuple()))
                 utils.updateChat(
                     mesoutbybot['message_id'], mesoutbybot['chat']['id'], cvTime)
