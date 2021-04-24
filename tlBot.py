@@ -3,10 +3,7 @@ from telegram import Update, Bot
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters, CallbackContext
 import os
 import logging
-from datetime import date, datetime
 import time
-import schedule
-import json
 
 # Config
 from tlConfig.credentials import bot_token, URL, typeGroup
