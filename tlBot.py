@@ -6,9 +6,10 @@ import logging
 from datetime import date, datetime
 import time
 import schedule
+import json
 
 # Config
-from tlConfig.credentials import bot_token, URL
+from tlConfig.credentials import bot_token, URL, typeGroup
 
 # Include
 import checkbsc
@@ -35,9 +36,13 @@ def getToken(update: Update, context: CallbackContext) -> None:
             mesoutbybot = bot.send_message(chat_id=update.effective_message.chat_id,
                                            text=strOut, parse_mode='HTML')
             print(update.message)
-            cvTime = int(time.mktime(mesoutbybot.date.timetuple()))
-            utils.updateChat(
-                mesoutbybot['message_id'], mesoutbybot['chat']['id'], cvTime)
+            typeChat = mesoutbybot['chat']['supergroup']
+            if typeChat == typeGroup:
+                print(typeChat)
+                cvTime = int(time.mktime(mesoutbybot.date.timetuple()))
+                utils.updateChat(
+                    mesoutbybot['message_id'], mesoutbybot['chat']['id'], cvTime)
+
             update.message.delete()
         except Exception as e:
             print(e)
@@ -67,10 +72,9 @@ def error(update: Update, context: CallbackContext) -> None:
 
 
 def main():
-    # while True:
-    #     schedule.run_pending()
-    #     time.sleep(1)
-
+    while True:
+        schedule.run_pending()
+        time.sleep(1)
     """Start the bot."""
     updater = Updater(TOKEN, use_context=True)
 
@@ -101,18 +105,19 @@ if __name__ == '__main__':
 
 def dltChat():
     try:
-        lst_Old = utils.readOldChat()
-        time_now = int(time.time())
+        with open('delete_save.json', 'r') as dl_file:
+            data = json.load(dl_file)
+            time_now = int(time.time())
 
-        lst_dlt = list(filter(lambda x: x["time"] <= time_now, lst_Old))
-        lst_save = list(filter(lambda x: x["time"] > time_now, lst_Old))
+            lst_dlt = list(filter(lambda x: x["time"] <= time_now, data))
+            lst_save = list(filter(lambda x: x["time"] > time_now, data))
 
-        for x in lst_dlt:
-            bot_delete = bot.delete_message(
-                chat_id=x.chat_id, message_id=x.message_id)
-            print(bot_delete)
+            for x in lst_dlt:
+                bot_delete = bot.delete_message(
+                    chat_id=x.chat_id, message_id=x.message_id)
+                print(bot_delete)
 
-        utils.save_delete_file(lst_save)
+            utils.save_delete_file(lst_save)
     except Exception as e:
         print(e)
 
