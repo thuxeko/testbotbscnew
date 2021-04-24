@@ -1,11 +1,11 @@
 import json
 
-def delete_oldTime():
-    with open('delete_save.json', 'r') as dl_file:
-        data = json.loads(dl_file)
-        # list_delete = list(filter(lambda x: x["time"] <= 1619163730, data))
-        list_save = list(filter(lambda x: x["time"] > 1619163730, data))
-        save_delete_file(list_save)
+# def delete_oldTime():
+#     with open('delete_save.json', 'r') as dl_file:
+#         data = json.load(dl_file)
+#         # list_delete = list(filter(lambda x: x["time"] <= 1619163730, data))
+#         list_save = list(filter(lambda x: x["time"] > 1619163730, data))
+#         save_delete_file(list_save)
 
 
 def save_delete_file(lstsave):
@@ -28,4 +28,4 @@ def updateChat(mesid, chatid, time):
 def readOldChat():
     with open('delete_save.json', 'r') as dl_file:
         data = json.load(dl_file)
-        print(data)
+        return data

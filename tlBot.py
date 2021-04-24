@@ -99,9 +99,20 @@ if __name__ == '__main__':
 # region Schedule
 
 
-def dltChat():
-    timeNow = time.time()
-    print(int(timeNow))
+def dltChat() -> None:
+    lst_Old = utils.readOldChat()
+    time_now = int(time.time())
+
+    lst_dlt = list(filter(lambda x: x["time"] <= time_now, lst_Old))
+    lst_save = list(filter(lambda x: x["time"] > time_now, lst_Old))
+
+    for x in lst_dlt:
+        bot_delete = bot.delete_message(
+            chat_id=x.chat_id, message_id=x.message_id)
+        print(bot_delete)
+    
+    utils.save_delete_file(lst_save)
+
 
 schedule.every(15).seconds.do(dltChat)
 # endreiong
