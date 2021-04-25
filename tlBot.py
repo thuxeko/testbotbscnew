@@ -37,8 +37,8 @@ def getToken(update: Update, context: CallbackContext) -> None:
                                            text=strOut, parse_mode='HTML')
 
             print('Mess Bot(Chat_ID: {chatid} - Mes_ID: {mesid})'.format(
-                mesid=mesoutbybot['message_id'], chatid=mesoutbybot['chat']['id']))
-                
+                mesid=mesoutbybot['message_id'], chatid=update.effective_message.chat_id))
+
             update.message.delete()
             typeChat = mesoutbybot['chat']['type']
             if typeChat == typeGroup:
