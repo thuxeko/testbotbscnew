@@ -29,10 +29,16 @@ def getToken(update: Update, context: CallbackContext) -> None:
         try:
             strOut = checkbsc.getTokenWithSymbol(
                 token, 1, update.message.from_user['first_name'], update.message.from_user['id'])
-            print('Mess User: {mes}'.format(mes=update.message))
+
+            print('Mess User(Chat_ID: {chatid} - Mes_ID: {mesid})'.format(
+                mesid=update.message.message_id, chatid=update.message.chat_id))
+
             mesoutbybot = bot.send_message(chat_id=update.effective_message.chat_id,
                                            text=strOut, parse_mode='HTML')
-            print('Mess Bot: {mesb}'.format(mesb=mesoutbybot))
+
+            print('Mess Bot(Chat_ID: {chatid} - Mes_ID: {mesid})'.format(
+                mesid=mesoutbybot['message_id'], chatid=mesoutbybot['chat']['id']))
+                
             update.message.delete()
             typeChat = mesoutbybot['chat']['type']
             if typeChat == typeGroup:
@@ -90,6 +96,7 @@ def main():
         updater.idle()
     except Exception as e:
         print(e)
+
 
 if __name__ == '__main__':
     main()
