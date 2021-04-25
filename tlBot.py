@@ -29,10 +29,10 @@ def getToken(update: Update, context: CallbackContext) -> None:
         try:
             strOut = checkbsc.getTokenWithSymbol(
                 token, 1, update.message.from_user['first_name'], update.message.from_user['id'])
-
+            print('Mess User: {mes}'.format(mes=update.message))
             mesoutbybot = bot.send_message(chat_id=update.effective_message.chat_id,
                                            text=strOut, parse_mode='HTML')
-            print(mesoutbybot)
+            print('Mess Bot: {mesb}'.format(mes=mesoutbybot))
             update.message.delete()
             typeChat = mesoutbybot['chat']['type']
             if typeChat == typeGroup:
