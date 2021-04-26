@@ -125,7 +125,7 @@ def getContract2(update: Update, context: CallbackContext) -> None:
 
 def infoBot(update: Update, context: CallbackContext) -> None:
     update.message.reply_text(
-        'Em chào anh, nhà em 3 đời làm bot 🤖, hiện tại bot này nhà em có: \n/p - Nhập mã Token để lấy thông tin \n/ct - Nhập mã Token để lấy Contract\n/info - Gọi em ra để dooddeed nè')
+        'Em chào anh, nhà em 3 đời làm bot 🤖, hiện tại bot này nhà em có: \n/p - Nhập mã Token để lấy thông tin v1\n/ct - Nhập mã Token để lấy Contract v1\n/p2 - Nhập mã Token để lấy thông tin v2\n/ct2 - Nhập mã Token để lấy Contract v2\n/info - Gọi em ra để dooddeed nè')
 
 
 def error(update: Update, context: CallbackContext) -> None:

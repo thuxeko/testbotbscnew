@@ -44,7 +44,7 @@ def dltChat():
         print(e)
 
 
-schedule.every(15).seconds.do(dltChat)
+schedule.every(1).minutes.do(dltChat)
 
 while True:
     schedule.run_pending()
