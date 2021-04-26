@@ -28,7 +28,7 @@ def getToken(update: Update, context: CallbackContext) -> None:
     if token[1].strip():
         try:
             strOut = checkbsc.getTokenWithSymbol(
-                token, 1, update.message.from_user['first_name'], update.message.from_user['id'])
+                token[1], 1, update.message.from_user['first_name'], update.message.from_user['id'])
 
             print('Mess User(Chat_ID: {chatid} - Mes_ID: {mesid})'.format(
                 mesid=update.message.message_id, chatid=update.message.chat_id))
@@ -57,7 +57,7 @@ def getContract(update: Update, context: CallbackContext) -> None:
         token = update.message.text.split(' ')
         if token[1].strip():
             strOut = checkbsc.getTokenWithSymbol(
-                token, 2, update.message.from_user['first_name'], update.message.from_user['id'])
+                token[1], 2, update.message.from_user['first_name'], update.message.from_user['id'])
 
             mesoutbybot = bot.send_message(chat_id=update.message.chat_id,
                                            text=strOut)
