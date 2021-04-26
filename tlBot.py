@@ -13,7 +13,6 @@ import checkbsc
 import utils
 
 TOKEN = bot_token
-# PORT = int(os.environ.get('PORT', 8443))
 bot = Bot(TOKEN)
 
 logging.basicConfig(
@@ -60,10 +59,6 @@ def getContract(update: Update, context: CallbackContext) -> None:
                 token[1], 2, update.message.from_user['first_name'], update.message.from_user['id'])
 
             mesoutbybot = update.message.reply_text(strOut)
-            # mesoutbybot = bot.send_message(chat_id=update.message.chat_id,
-            #                                text=strOut)
-            # update.message.reply_text(strOut)
-            # update.message.delete()
 
             typeChat = mesoutbybot['chat']['type']
             if typeChat == typeGroup:
