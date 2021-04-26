@@ -1,11 +1,3 @@
-import requests
-import json
-
-import checkbsc
-
-x = input('Symbol: ')
-y = input('Type: ')
-
-strOut = checkbsc.getTokenWithSymbol(x, int(y))
-
-print(strOut)
+abc = "/p@abcnsjjhf  gmt abc"
+token = abc.split(' ')
+print(token[1].strip())

@@ -24,8 +24,8 @@ logger = logging.getLogger(__name__)
 
 
 def getToken(update: Update, context: CallbackContext) -> None:
-    token = update.message.text.replace('/p', '').strip()
-    if token:
+    token = update.message.text.split(' ')
+    if token[1].strip():
         try:
             strOut = checkbsc.getTokenWithSymbol(
                 token, 1, update.message.from_user['first_name'], update.message.from_user['id'])
@@ -53,14 +53,26 @@ def getToken(update: Update, context: CallbackContext) -> None:
 
 
 def getContract(update: Update, context: CallbackContext) -> None:
-    token = update.message.text.replace('/ct', '').strip()
-    if token:
-        strOut = checkbsc.getTokenWithSymbol(
-            token, 2, update.message.from_user['first_name'], update.message.from_user['id'])
-        update.message.reply_text(strOut)
-        update.message.delete()
-    else:
-        update.message.reply_text("Sai câu lệnh")
+    try:
+        token = update.message.text.split(' ')
+        if token[1].strip():
+            strOut = checkbsc.getTokenWithSymbol(
+                token, 2, update.message.from_user['first_name'], update.message.from_user['id'])
+
+            mesoutbybot = bot.send_message(chat_id=update.message.chat_id,
+                                           text=strOut)
+            # update.message.reply_text(strOut)
+            update.message.delete()
+
+            typeChat = mesoutbybot['chat']['type']
+            if typeChat == typeGroup:
+                cvTime = int(time.mktime(mesoutbybot.date.timetuple()))
+                utils.updateChat(
+                    mesoutbybot['message_id'], mesoutbybot['chat']['id'], cvTime)
+        else:
+            update.message.reply_text("Sai câu lệnh")
+    except Exception as e:
+        print(e)
 
 
 def infoBot(update: Update, context: CallbackContext) -> None:
