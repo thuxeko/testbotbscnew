@@ -146,9 +146,9 @@ def main():
         dp = updater.dispatcher
 
         dp.add_handler(CommandHandler("p", getToken))
-        dp.add_handler(CommandHandler("p2", getToken))
+        dp.add_handler(CommandHandler("p2", getToken2))
         dp.add_handler(CommandHandler("ct", getContract))
-        dp.add_handler(CommandHandler("ct2", getContract))
+        dp.add_handler(CommandHandler("ct2", getContract2))
         dp.add_handler(CommandHandler("info", infoBot))
 
         # Log error
