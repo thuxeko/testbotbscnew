@@ -22,7 +22,7 @@ logging.basicConfig(
 
 logger = logging.getLogger(__name__)
 
-
+#region V1
 def getToken(update: Update, context: CallbackContext) -> None:
     token = update.message.text.split(' ')
     if token[1].strip():
@@ -73,7 +73,61 @@ def getContract(update: Update, context: CallbackContext) -> None:
             update.message.reply_text("Sai câu lệnh")
     except Exception as e:
         print(e)
+#endregion
 
+#region V2
+def getToken2(update: Update, context: CallbackContext) -> None:
+    token = update.message.text.split(' ')
+    if token[1].strip():
+        try:
+            strOut = checkbsc.getTokenWithSymbol2(
+                token[1], 1, update.message.from_user['first_name'], update.message.from_user['id'])
+
+            print('Mess User(Chat_ID: {chatid} - Mes_ID: {mesid})'.format(
+                mesid=update.message.message_id, chatid=update.message.chat_id))
+
+            mesoutbybot = bot.send_message(chat_id=update.effective_message.chat_id,
+                                           text=strOut, parse_mode='HTML')
+
+            print('Mess Bot(Chat_ID: {chatid} - Mes_ID: {mesid})'.format(
+                mesid=mesoutbybot['message_id'], chatid=update.effective_message.chat_id))
+
+            update.message.delete()
+            typeChat = mesoutbybot['chat']['type']
+            if typeChat == typeGroup:
+                cvTime = int(time.mktime(mesoutbybot.date.timetuple()))
+                utils.updateChat(
+                    mesoutbybot['message_id'], mesoutbybot['chat']['id'], cvTime)
+        except Exception as e:
+            print(e)
+
+    else:
+        update.message.reply_text("Sai câu lệnh")
+
+
+def getContract2(update: Update, context: CallbackContext) -> None:
+    try:
+        token = update.message.text.split(' ')
+        if token[1].strip():
+            strOut = checkbsc.getTokenWithSymbol2(
+                token[1], 2, update.message.from_user['first_name'], update.message.from_user['id'])
+
+            # mesoutbybot = bot.send_message(chat_id=update.message.chat_id,
+            #                                text=strOut)
+            mesoutbybot = update.message.reply_text(strOut)
+            print(mesoutbybot)
+            # update.message.delete()
+
+            # typeChat = mesoutbybot['chat']['type']
+            # if typeChat == typeGroup:
+            #     cvTime = int(time.mktime(mesoutbybot.date.timetuple()))
+            #     utils.updateChat(
+            #         mesoutbybot['message_id'], mesoutbybot['chat']['id'], cvTime)
+        else:
+            update.message.reply_text("Sai câu lệnh")
+    except Exception as e:
+        print(e)
+#endregion
 
 def infoBot(update: Update, context: CallbackContext) -> None:
     update.message.reply_text(
@@ -92,7 +146,9 @@ def main():
         dp = updater.dispatcher
 
         dp.add_handler(CommandHandler("p", getToken))
+        dp.add_handler(CommandHandler("p2", getToken))
         dp.add_handler(CommandHandler("ct", getContract))
+        dp.add_handler(CommandHandler("ct2", getContract))
         dp.add_handler(CommandHandler("info", infoBot))
 
         # Log error
