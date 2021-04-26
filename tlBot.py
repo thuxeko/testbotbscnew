@@ -59,16 +59,19 @@ def getContract(update: Update, context: CallbackContext) -> None:
             strOut = checkbsc.getTokenWithSymbol(
                 token[1], 2, update.message.from_user['first_name'], update.message.from_user['id'])
 
-            mesoutbybot = bot.send_message(chat_id=update.message.chat_id,
-                                           text=strOut)
+            mesoutbybot = update.message.reply_text(strOut)
+            # mesoutbybot = bot.send_message(chat_id=update.message.chat_id,
+            #                                text=strOut)
             # update.message.reply_text(strOut)
-            update.message.delete()
+            # update.message.delete()
 
             typeChat = mesoutbybot['chat']['type']
             if typeChat == typeGroup:
                 cvTime = int(time.mktime(mesoutbybot.date.timetuple()))
                 utils.updateChat(
                     mesoutbybot['message_id'], mesoutbybot['chat']['id'], cvTime)
+                
+                utils.updateChat(update.message.message_id, update.message.chat_id, cvTime)
         else:
             update.message.reply_text("Sai câu lệnh")
     except Exception as e:
@@ -104,7 +107,6 @@ def getToken2(update: Update, context: CallbackContext) -> None:
     else:
         update.message.reply_text("Sai câu lệnh")
 
-
 def getContract2(update: Update, context: CallbackContext) -> None:
     try:
         token = update.message.text.split(' ')
@@ -112,17 +114,14 @@ def getContract2(update: Update, context: CallbackContext) -> None:
             strOut = checkbsc.getTokenWithSymbol2(
                 token[1], 2, update.message.from_user['first_name'], update.message.from_user['id'])
 
-            # mesoutbybot = bot.send_message(chat_id=update.message.chat_id,
-            #                                text=strOut)
             mesoutbybot = update.message.reply_text(strOut)
-            print(mesoutbybot)
-            # update.message.delete()
-
-            # typeChat = mesoutbybot['chat']['type']
-            # if typeChat == typeGroup:
-            #     cvTime = int(time.mktime(mesoutbybot.date.timetuple()))
-            #     utils.updateChat(
-            #         mesoutbybot['message_id'], mesoutbybot['chat']['id'], cvTime)
+            typeChat = mesoutbybot['chat']['type']
+            if typeChat == typeGroup:
+                cvTime = int(time.mktime(mesoutbybot.date.timetuple()))
+                utils.updateChat(
+                    mesoutbybot['message_id'], mesoutbybot['chat']['id'], cvTime)
+                
+                utils.updateChat(update.message.message_id, update.message.chat_id, cvTime)
         else:
             update.message.reply_text("Sai câu lệnh")
     except Exception as e:
