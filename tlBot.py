@@ -156,6 +156,15 @@ def infoBot(update: Update, context: CallbackContext) -> None:
 def error(update: Update, context: CallbackContext) -> None:
     update.message.reply_text(update.message.text)
 
+def anxin(update: Update, context: CallbackContext):
+    update.message.reply_text(
+        'Ủng hộ cha làm bot nghèo 🙇🏻 \nBNB-Bep20: 0x810Caa3fFf0A9C56b22B745dE713d1b305dDbA71\nETH: 0x6067Eb0f98AB2488d8AB66232CeCCdc399c94A0D'
+    )
+
+def chaosep(update: Update, context: CallbackContext):
+    update.message.reply_text(
+        'Chúng em chào sếp Hạnh, sếp Hạnh vạn tuế vạn tuế vạn vạn tuế 🙇 🙇 🙇'
+    )
 
 def main():
     try:
@@ -169,6 +178,8 @@ def main():
         dp.add_handler(CommandHandler("ct", getContract))
         dp.add_handler(CommandHandler("ct2", getContract2))
         dp.add_handler(CommandHandler("info", infoBot))
+        dp.add_handler(CommandHandler("anxin", anxin))
+        dp.add_handler(CommandHandler("chaosep", chaosep))
 
         # Log error
         dp.add_error_handler(error)
