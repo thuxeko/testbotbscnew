@@ -26,7 +26,7 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 
-#region V1
+# region V1
 def getToken(update: Update, context: CallbackContext) -> None:
     token = update.message.text.split(' ')
     if token[1].strip():
@@ -86,10 +86,10 @@ def getContract(update: Update, context: CallbackContext) -> None:
         print(e)
 
 
-#endregion
+# endregion
 
 
-#region V2
+# region V2
 def getToken2(update: Update, context: CallbackContext) -> None:
     token = update.message.text.split(' ')
     if token[1].strip():
@@ -147,16 +147,16 @@ def getContract2(update: Update, context: CallbackContext) -> None:
         print(e)
 
 
-#endregion
+# endregion
 
 
-#region An xin
+# region An xin
 def setWallet(update: Update, _: CallbackContext) -> int:
     typeChat = update.message['chat']['type']
     if typeChat == typePerson:
         update.message.reply_text(
             'Vui lòng nhập nội dung ví theo định dạng bạn mong muốn\nVí dụ: Ủng hộ quỹ hưu trí: \nVí BNB: xxxx\nVí ETH: xxx\nNhập /cancel để huỷ bỏ', reply_markup=ReplyKeyboardRemove())
-            
+
         return SWL
     else:
         update.message.reply_text('Group giàu bỏ mẹ éo cho set ví nhớ 🤨🤨🤨')
@@ -181,12 +181,14 @@ def SaveWL(update: Update, _: CallbackContext) -> int:
         data.append(objUser)
         with open('save_wallet.json', 'w') as data_file:
             json.dump(data, data_file)
-    
+
     update.message.reply_text('Nhập thông tin thành công')
     return ConversationHandler.END
 
+
 def cancel(update: Update, _: CallbackContext) -> int:
     return ConversationHandler.END
+
 
 def anxin(update: Update, context: CallbackContext) -> None:
     with open('save_wallet.json', 'r') as dl_file:
@@ -199,13 +201,16 @@ def anxin(update: Update, context: CallbackContext) -> None:
     # update.message.reply_text(
     #     'Ủng hộ cha làm bot nghèo 🙇🏻 \nBNB-Bep20: 0x810Caa3fFf0A9C56b22B745dE713d1b305dDbA71\nETH: 0x6067Eb0f98AB2488d8AB66232CeCCdc399c94A0D'
     # )
-#endregion
+# endregion
 
-#region Other
+# region Other
+
+
 def chaosep(update: Update, context: CallbackContext):
     update.message.reply_text(
-        'Chúng em chào sếp Hạnh, sếp Hạnh vạn tuế vạn tuế vạn vạn tuế 🙇 🙇 🙇'
+        'Ơi'
     )
+
 
 def infoBot(update: Update, context: CallbackContext) -> None:
     update.message.reply_text(
@@ -213,9 +218,23 @@ def infoBot(update: Update, context: CallbackContext) -> None:
     )
 
 
+def checkGas(update: Update, context: CallbackContext) -> None:
+    text_out = utils.checkGasEth()
+    mesoutbybot = update.message.reply_html(text_out)
+    typeChat = mesoutbybot['chat']['type']
+    if typeChat == typeGroup:
+        cvTime = int(time.mktime(mesoutbybot.date.timetuple()))
+        utils.updateChat(mesoutbybot['message_id'],
+                         mesoutbybot['chat']['id'], (cvTime + timeConfig))
+
+        utils.updateChat(update.message.message_id,
+                         update.message.chat_id, (cvTime + timeConfig))
+
+
 def error(update: Update, context: CallbackContext) -> None:
     update.message.reply_text(update.message.text)
-#endregion
+# endregion
+
 
 def main():
     try:
@@ -231,6 +250,7 @@ def main():
         dp.add_handler(CommandHandler("info", infoBot))
         dp.add_handler(CommandHandler("anxin", anxin))
         dp.add_handler(CommandHandler("chaosep", chaosep))
+        dp.add_handler(CommandHandler("gas", checkGas))
 
         conv_handler = ConversationHandler(
             entry_points=[CommandHandler('setwl', setWallet)],
