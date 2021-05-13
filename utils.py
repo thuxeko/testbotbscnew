@@ -31,7 +31,7 @@ def checkGasEth():
     res = json.loads(check_gas.text.encode('utf8').decode('utf8'))
 
     if res['status'] == '1':
-        text_out = 'Tốc độ bàn thờ: <b>{fast}</b> gwei/nTốc độ ô tô: <b>{medium}</b> gwei/nTốc độ xe đạp: <b>{low}</b> gwei'.format(
+        text_out = 'Tốc độ bàn thờ: <b>{fast}</b> gwei\nTốc độ ô tô: <b>{medium}</b> gwei\nTốc độ xe đạp: <b>{low}</b> gwei'.format(
         fast=res['result']['FastGasPrice'], medium=res['result']['ProposeGasPrice'], low=res['result']['SafeGasPrice'])
     
         return text_out
