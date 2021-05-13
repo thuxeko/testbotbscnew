@@ -37,5 +37,3 @@ def checkGasEth():
         return text_out
     else:
         return 'Lỗi rồi sếp ơi :(('
-
-    
