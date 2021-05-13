@@ -24,7 +24,7 @@ def readOldChat():
         return data
 
 def checkGasEth():
-    api_key = 'xxx'
+    api_key = '6GVP57GV2ZB7S4F17KD22RAZDKFNCQGA9I'
     api_gas = 'https://api.etherscan.io/api?module=gastracker&action=gasoracle&apikey=' + api_key
 
     check_gas = requests.get(api_gas)
