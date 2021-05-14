@@ -1,0 +1,4 @@
+{
+    "gaslimit_transfer": 65000,
+    "gaslimit_uniswap": 200000
+}
