@@ -17,6 +17,7 @@ bot = Bot(TOKEN)
 
 def dltChat():
     try:
+        print('Tiến hành xoá chat')
         with open('delete_save.json', 'r') as dl_file:
             data = json.load(dl_file)
             time_now = int(time.time())
