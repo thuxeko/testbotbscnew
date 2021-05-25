@@ -1,4 +1,5 @@
 {
-    "gaslimit_transfer": 65000,
-    "gaslimit_uniswap": 200000
+    "mongo_connect": "mongodb+srv://txkad:oVzaW7FrdRSs49@instameowthu.rc3s7.mongodb.net",
+    "typeGroup": "supergroup",
+    "typePerson": "private"
 }

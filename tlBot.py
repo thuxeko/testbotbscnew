@@ -1,19 +1,22 @@
 # Lib
 from telegram import Update, Bot, ReplyKeyboardRemove
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters, CallbackContext, ConversationHandler
-import os
 import logging
 import time
 import json
 
 # Config
-from tlConfig.credentials import bot_token, URL, typeGroup, typePerson
+from tlConfig.credentials import typeGroup, typePerson
 
 # Include
-import checkbsc
+import checkToken
 import utils
+import dbrun
 
-TOKEN = bot_token
+TOKEN = dbrun.getConfig('bot_token')
+URL_BOT = dbrun.getConfig('URL')
+dataConfig = utils.readConfigJson()
+
 bot = Bot(TOKEN)
 timeConfig = 60
 
@@ -26,37 +29,32 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 
-# region V1
+# region Get Token BSC
 def getToken(update: Update, context: CallbackContext) -> None:
     token = update.message.text.split(' ')
     if token[1].strip():
         try:
-            strOut = checkbsc.getTokenWithSymbol(
-                token[1], 1, update.message.from_user['first_name'],
-                update.message.from_user['id'])
+            resinsert =  dbrun.insertToDb(update.message.to_json(), 1) # Insert user/group
+            print(resinsert)
 
-            print('Mess User(Chat_ID: {chatid} - Mes_ID: {mesid})'.format(
-                mesid=update.message.message_id,
-                chatid=update.message.chat_id))
+            strOut = checkToken.getTokenWithSymbol(
+                token[1], 1, update.message.from_user['first_name'],
+                update.message.from_user['id'], 'bsc')
 
             mesoutbybot = bot.send_message(
                 chat_id=update.effective_message.chat_id,
                 text=strOut,
                 parse_mode='HTML')
 
-            print('Mess Bot(Chat_ID: {chatid} - Mes_ID: {mesid})'.format(
-                mesid=mesoutbybot['message_id'],
-                chatid=update.effective_message.chat_id))
-
             update.message.delete()
             typeChat = mesoutbybot['chat']['type']
-            if typeChat == typeGroup:
+            if typeChat == dataConfig['typeGroup']:
                 cvTime = int(time.mktime(mesoutbybot.date.timetuple()))
                 utils.updateChat(mesoutbybot['message_id'],
                                  mesoutbybot['chat']['id'],
                                  (cvTime + timeConfig))
         except Exception as e:
-            print(e)
+            dbrun.writeLog('getToken', e)
 
     else:
         update.message.reply_text("Sai câu lệnh")
@@ -66,14 +64,17 @@ def getContract(update: Update, context: CallbackContext) -> None:
     try:
         token = update.message.text.split(' ')
         if token[1].strip():
-            strOut = checkbsc.getTokenWithSymbol(
+            resinsert =  dbrun.insertToDb(update.message.to_json(), 1) # Insert user/group
+            print(resinsert)
+
+            strOut = checkToken.getTokenWithSymbol(
                 token[1], 2, update.message.from_user['first_name'],
-                update.message.from_user['id'])
+                update.message.from_user['id'], 'bsc')
 
             mesoutbybot = update.message.reply_text(strOut)
 
             typeChat = mesoutbybot['chat']['type']
-            if typeChat == typeGroup:
+            if typeChat == dataConfig['typeGroup']:
                 cvTime = int(time.mktime(mesoutbybot.date.timetuple()))
                 utils.updateChat(mesoutbybot['message_id'],
                                  mesoutbybot['chat']['id'], (cvTime + timeConfig))
@@ -83,58 +84,55 @@ def getContract(update: Update, context: CallbackContext) -> None:
         else:
             update.message.reply_text("Sai câu lệnh")
     except Exception as e:
-        print(e)
-
-
+        dbrun.writeLog('getContract', e)
 # endregion
 
-
-# region V2
-def getToken2(update: Update, context: CallbackContext) -> None:
+#region Get Token ETH
+def getTokenETH(update: Update, context: CallbackContext) -> None:
     token = update.message.text.split(' ')
     if token[1].strip():
         try:
-            strOut = checkbsc.getTokenWithSymbol2(
-                token[1], 1, update.message.from_user['first_name'],
-                update.message.from_user['id'])
+            resinsert =  dbrun.insertToDb(update.message.to_json(), 1) # Insert user/group
+            print(resinsert)
 
-            print('Mess User(Chat_ID: {chatid} - Mes_ID: {mesid})'.format(
-                mesid=update.message.message_id,
-                chatid=update.message.chat_id))
+            strOut = checkToken.getTokenWithSymbol(
+                token[1], 1, update.message.from_user['first_name'],
+                update.message.from_user['id'], 'eth')
 
             mesoutbybot = bot.send_message(
                 chat_id=update.effective_message.chat_id,
                 text=strOut,
                 parse_mode='HTML')
 
-            print('Mess Bot(Chat_ID: {chatid} - Mes_ID: {mesid})'.format(
-                mesid=mesoutbybot['message_id'],
-                chatid=update.effective_message.chat_id))
-
             update.message.delete()
             typeChat = mesoutbybot['chat']['type']
-            if typeChat == typeGroup:
+            if typeChat == dataConfig['typeGroup']:
                 cvTime = int(time.mktime(mesoutbybot.date.timetuple()))
                 utils.updateChat(mesoutbybot['message_id'],
-                                 mesoutbybot['chat']['id'], (cvTime + timeConfig))
+                                 mesoutbybot['chat']['id'],
+                                 (cvTime + timeConfig))
         except Exception as e:
-            print(e)
+            dbrun.writeLog('getTokenETH', e)
 
     else:
         update.message.reply_text("Sai câu lệnh")
 
 
-def getContract2(update: Update, context: CallbackContext) -> None:
+def getContractETH(update: Update, context: CallbackContext) -> None:
     try:
         token = update.message.text.split(' ')
         if token[1].strip():
-            strOut = checkbsc.getTokenWithSymbol2(
+            resinsert =  dbrun.insertToDb(update.message.to_json(), 1) # Insert user/group
+            print(resinsert)
+
+            strOut = checkToken.getTokenWithSymbol(
                 token[1], 2, update.message.from_user['first_name'],
-                update.message.from_user['id'])
+                update.message.from_user['id'], 'eth')
 
             mesoutbybot = update.message.reply_text(strOut)
+
             typeChat = mesoutbybot['chat']['type']
-            if typeChat == typeGroup:
+            if typeChat == dataConfig['typeGroup']:
                 cvTime = int(time.mktime(mesoutbybot.date.timetuple()))
                 utils.updateChat(mesoutbybot['message_id'],
                                  mesoutbybot['chat']['id'], (cvTime + timeConfig))
@@ -144,16 +142,48 @@ def getContract2(update: Update, context: CallbackContext) -> None:
         else:
             update.message.reply_text("Sai câu lệnh")
     except Exception as e:
-        print(e)
+        dbrun.writeLog('getContractETH', e)
+#endregion
+
+#region Add Token
+def addTokenBSC(update: Update, context: CallbackContext) -> None:
+    try:
+        # Check User
+        check = dbrun.checkUserAdmin(update.message.chat_id)
+        if check:
+            contract = update.message.text.split(' ')
+            if contract[1].strip():
+                result = dbrun.insertToDb(contract[1].strip(), 2, 'bsc')
+                update.message.reply_text(result)
+            else:
+                update.message.reply_text('Điền cái éo gì thế???')
+        else:
+            update.message.reply_text('Phắn đê bạn êi')
+    except Exception as e:
+        dbrun.writeLog('addTokenBSC', e)
 
 
-# endregion
-
+def addTokenETH(update: Update, context: CallbackContext) -> None:
+    try:
+        # Check User
+        check = dbrun.checkUserAdmin(update.message.chat_id)
+        if check:
+            contract = update.message.text.split(' ')
+            if contract[1].strip():
+                result = dbrun.insertToDb(contract[1].strip(), 2, 'eth')
+                update.message.reply_text(result)
+            else:
+                update.message.reply_text('Điền cái éo gì thế???')
+        else:
+            update.message.reply_text('Phắn đê bạn êi')
+    except Exception as e:
+        dbrun.writeLog('addTokenETH', e)
+#endregion
 
 # region An xin
 def setWallet(update: Update, _: CallbackContext) -> int:
     typeChat = update.message['chat']['type']
-    if typeChat == typePerson:
+    if typeChat == dataConfig['typePerson']:
         update.message.reply_text(
             'Vui lòng nhập nội dung ví theo định dạng bạn mong muốn\nVí dụ: Ủng hộ quỹ hưu trí: \nVí BNB: xxxx\nVí ETH: xxx\nNhập /cancel để huỷ bỏ', reply_markup=ReplyKeyboardRemove())
 
@@ -204,8 +234,6 @@ def anxin(update: Update, context: CallbackContext) -> None:
 # endregion
 
 # region Other
-
-
 def chaosep(update: Update, context: CallbackContext):
     update.message.reply_text(
         'Ơi'
@@ -235,7 +263,6 @@ def error(update: Update, context: CallbackContext) -> None:
     update.message.reply_text(update.message.text)
 # endregion
 
-
 def main():
     try:
         """Start the bot."""
@@ -244,9 +271,14 @@ def main():
         dp = updater.dispatcher
 
         dp.add_handler(CommandHandler("p", getToken))
-        dp.add_handler(CommandHandler("p2", getToken2))
-        dp.add_handler(CommandHandler("ct", getContract))
-        dp.add_handler(CommandHandler("ct2", getContract2))
+        dp.add_handler(CommandHandler("cb", getContract))
+
+        dp.add_handler(CommandHandler("pe", getTokenETH))
+        dp.add_handler(CommandHandler("ce", getContractETH))
+
+        dp.add_handler(CommandHandler("ab", addTokenBSC))
+        dp.add_handler(CommandHandler("ae", addTokenETH))
+
         dp.add_handler(CommandHandler("info", infoBot))
         dp.add_handler(CommandHandler("anxin", anxin))
         dp.add_handler(CommandHandler("chaosep", chaosep))
@@ -270,7 +302,7 @@ def main():
                               url_path=TOKEN,
                               key='private.key',
                               cert='cert.pem',
-                              webhook_url=URL + TOKEN)
+                              webhook_url=URL_BOT + TOKEN)
         updater.idle()
     except Exception as e:
         print(e)
