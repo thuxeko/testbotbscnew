@@ -126,6 +126,7 @@ def findTokenWithSymbol(symbol, chain):
                 'contract': {'$toString': '$contract'},
                 'network': {'$toString': '$network'},
                 'active': {'$toBool': '$active'},
+                'name': {'$toString': '$name'}
             }
         },
         {

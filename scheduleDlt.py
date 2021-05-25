@@ -40,7 +40,7 @@ def dltChat():
 
             utils.save_delete_file(lst_save)
     except Exception as e:
-        print(e)
+        dbrun.writeLog('dltChat', e)
 
 
 schedule.every(1).minutes.do(dltChat)
