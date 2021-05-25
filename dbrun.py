@@ -116,9 +116,24 @@ def getConfig(key):
     configGet = config_data.find_one({"key": key})
     return configGet['value']
 
+
 def findTokenWithSymbol(symbol, chain):
-    token = token_list.find_one({"symbol": symbol, "network": chain})
-    return token
+    token = token_list.aggregate([
+        {
+            '$project':
+            {
+                'symbol': {'$toUpper': "$symbol"},
+                'contract': {'$toString': '$contract'},
+                'network': {'$toString': '$network'},
+                'active': {'$toBool': '$active'},
+            }
+        },
+        {
+            '$match': {'symbol':  symbol.upper(), 'network': chain}
+        },
+        {"$limit": 1}
+    ])
+    return next(token, None)
 
 
 # region Check ETH Gas

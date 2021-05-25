@@ -20,13 +20,13 @@ def getTokenWithSymbol(symbol: str, typeCm, username, userid, chain):
                     tokenRes['name'] + ' - ' + tokenRes['symbol']
 
                 symbol_usd = '1 {symbol} = {priceusd} USD'.format(
-                    symbol=tokenRes['symbol'], priceusd=str(getDetailsToken['priceUSD'])[:str(getDetailsToken['priceUSD']).index('.') + 14])
+                    symbol=tokenRes['symbol'], priceusd=str(format(getDetailsToken['priceUSD'],'.14f')))
 
                 symbol_bnb = '1 {symbol} = {pricebnb} BNB'.format(
-                    symbol=tokenRes['symbol'], pricebnb=str(getDetailsToken['priceETH'])[:str(getDetailsToken['priceETH']).index('.') + 14])
+                    symbol=tokenRes['symbol'], pricebnb=str(format(getDetailsToken['priceETH'],'.14f')))
 
-                totalin1usd = str(1/getDetailsToken['priceUSD'])
-                totalin1bnb = str(1/getDetailsToken['priceETH'])
+                totalin1usd = str(1/format(getDetailsToken['priceUSD'],'.14f'))
+                totalin1bnb = str(1/format(getDetailsToken['priceETH'],'.14f'))
                 usd_symbol = '1 USD = {total} {symbol}'.format(
                     symbol=tokenRes['symbol'], total=totalin1usd)
                 bnb_symbol = '1 BNB = {total} {symbol}'.format(
