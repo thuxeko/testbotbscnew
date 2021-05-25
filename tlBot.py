@@ -244,7 +244,7 @@ def infoBot(update: Update, context: CallbackContext) -> None:
 
 
 def checkGas(update: Update, context: CallbackContext) -> None:
-    text_out = utils.checkGasEth()
+    text_out = dbrun.checkGasEth()
     mesoutbybot = update.message.reply_html(text_out)
     typeChat = mesoutbybot['chat']['type']
     if typeChat == dataConfig['typeGroup']:
