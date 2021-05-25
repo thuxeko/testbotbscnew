@@ -6,14 +6,12 @@ import json
 import requests
 
 # Config
-from tlConfig.credentials import bot_token, URL
 
 # Include
-import checkbsc
 import utils
+import dbrun
 
-TOKEN = bot_token
-# PORT = int(os.environ.get('PORT', 8443))
+TOKEN = dbrun.getConfig('bot_token')
 bot = Bot(TOKEN)
 
 
