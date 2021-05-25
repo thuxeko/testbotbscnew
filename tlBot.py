@@ -5,9 +5,6 @@ import logging
 import time
 import json
 
-# Config
-from tlConfig.credentials import typeGroup, typePerson
-
 # Include
 import checkToken
 import utils
@@ -250,7 +247,7 @@ def checkGas(update: Update, context: CallbackContext) -> None:
     text_out = utils.checkGasEth()
     mesoutbybot = update.message.reply_html(text_out)
     typeChat = mesoutbybot['chat']['type']
-    if typeChat == typeGroup:
+    if typeChat == dataConfig['typeGroup']:
         cvTime = int(time.mktime(mesoutbybot.date.timetuple()))
         utils.updateChat(mesoutbybot['message_id'],
                          mesoutbybot['chat']['id'], (cvTime + timeConfig))
