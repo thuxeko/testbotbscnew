@@ -51,7 +51,7 @@ def getToken(update: Update, context: CallbackContext) -> None:
                                  mesoutbybot['chat']['id'],
                                  (cvTime + timeConfig))
         except Exception as e:
-            dbrun.writeLog('getToken', e)
+            dbrun.writeLog('getToken', str(e))
 
     else:
         update.message.reply_text("Sai câu lệnh")
@@ -81,7 +81,7 @@ def getContract(update: Update, context: CallbackContext) -> None:
         else:
             update.message.reply_text("Sai câu lệnh")
     except Exception as e:
-        dbrun.writeLog('getContract', e)
+        dbrun.writeLog('getContract', str(e))
 # endregion
 
 #region Get Token ETH
@@ -109,7 +109,7 @@ def getTokenETH(update: Update, context: CallbackContext) -> None:
                                  mesoutbybot['chat']['id'],
                                  (cvTime + timeConfig))
         except Exception as e:
-            dbrun.writeLog('getTokenETH', e)
+            dbrun.writeLog('getTokenETH', str(e))
 
     else:
         update.message.reply_text("Sai câu lệnh")
@@ -139,7 +139,7 @@ def getContractETH(update: Update, context: CallbackContext) -> None:
         else:
             update.message.reply_text("Sai câu lệnh")
     except Exception as e:
-        dbrun.writeLog('getContractETH', e)
+        dbrun.writeLog('getContractETH', str(e))
 #endregion
 
 #region Add Token
@@ -157,7 +157,7 @@ def addTokenBSC(update: Update, context: CallbackContext) -> None:
         else:
             update.message.reply_text('Phắn đê bạn êi')
     except Exception as e:
-        dbrun.writeLog('addTokenBSC', e)
+        dbrun.writeLog('addTokenBSC', str(e))
 
 
 def addTokenETH(update: Update, context: CallbackContext) -> None:
@@ -174,7 +174,7 @@ def addTokenETH(update: Update, context: CallbackContext) -> None:
         else:
             update.message.reply_text('Phắn đê bạn êi')
     except Exception as e:
-        dbrun.writeLog('addTokenETH', e)
+        dbrun.writeLog('addTokenETH', str(e))
 #endregion
 
 # region An xin

@@ -27,9 +27,9 @@ def getTokenWithSymbol(symbol: str, typeCm, username, userid, chain):
                         symbol=tokenRes['symbol'], pricebnb=str(format(getDetailsToken['priceETH'], '.14f')))
 
                     totalin1usd = str(
-                        1/format(getDetailsToken['priceUSD'], '.14f'))
+                        1/float(format(getDetailsToken['priceUSD'], '.14f')))
                     totalin1bnb = str(
-                        1/format(getDetailsToken['priceETH'], '.14f'))
+                        1/float(format(getDetailsToken['priceETH'], '.14f')))
                     usd_symbol = '1 USD = {total} {symbol}'.format(
                         symbol=tokenRes['symbol'], total=totalin1usd)
                     bnb_symbol = '1 BNB = {total} {symbol}'.format(
@@ -48,4 +48,5 @@ def getTokenWithSymbol(symbol: str, typeCm, username, userid, chain):
         else:
             return "Token không tồn tại"
     except Exception as e:
-        dbrun.writeLog('getTokenWithSymbol', e)
+        print(str(e))
+        dbrun.writeLog('getTokenWithSymbol', str(e))
