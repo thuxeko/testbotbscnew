@@ -4,17 +4,24 @@ import utils
 
 def getTokenWithSymbol(symbol: str, typeCm, username, userid, chain):
     tokenRes = dbrun.findTokenWithSymbol(symbol, chain)
+    urlChart = urlBuy = ''
     try:
         if tokenRes is not None:
             if typeCm == 1:
                 getDetailsToken = utils.checkToken(tokenRes['contract'], chain)
 
                 if getDetailsToken:
-                    # String Link PancakeSwap & Poocoin Chart
-                    pooChart = '<a href="{link}">💩_PooChart_💩</a>'.format(
-                        link='https://poocoin.app/tokens/{contract}'.format(contract=tokenRes['contract']))
-                    pancakeLink = '<a href="{linkPc}">🥞_Buy Token_🥞</a>'.format(
-                        linkPc='https://exchange.pancakeswap.finance/#/swap?inputCurrency={contract}'.format(contract=tokenRes['contract']))
+                    # String Link swap & Chart
+                    if chain == 'bsc':
+                        urlChart = '<a href="{link}">💩_PooChart_💩</a>'.format(
+                            link='https://poocoin.app/tokens/{contract}'.format(contract=tokenRes['contract']))
+                        urlBuy = '<a href="{linkPc}">🥞_PancakeSwap_🥞</a>'.format(
+                            linkPc='https://exchange.pancakeswap.finance/#/swap?inputCurrency={contract}'.format(contract=tokenRes['contract']))
+                    elif chain == 'eth':
+                        urlChart = '<a href="{link}">📈_DexGuru_📈</a>'.format(
+                            link='https://dex.guru/token/{contract}-eth'.format(contract=tokenRes['contract']))
+                        urlBuy = '<a href="{linkPc}">🦄_UniSwap_🦄</a>'.format(
+                            linkPc='https://app.uniswap.org/#/swap?outputCurrency={contract}'.format(contract=tokenRes['contract']))
 
                     # String Text
                     token_symbol = 'Token: ' + \
@@ -23,22 +30,20 @@ def getTokenWithSymbol(symbol: str, typeCm, username, userid, chain):
                     symbol_usd = '1 {symbol} = {priceusd} USD'.format(
                         symbol=tokenRes['symbol'], priceusd=str(format(getDetailsToken['priceUSD'], '.14f')))
 
-                    symbol_bnb = '1 {symbol} = {pricebnb} BNB'.format(
+                    symbol_bnb = '1 {symbol} = {pricebnb} BNB/ETH'.format(
                         symbol=tokenRes['symbol'], pricebnb=str(format(getDetailsToken['priceETH'], '.14f')))
 
-                    totalin1usd = str(
-                        1/float(format(getDetailsToken['priceUSD'], '.14f')))
-                    totalin1bnb = str(
-                        1/float(format(getDetailsToken['priceETH'], '.14f')))
+                    totalin1usd = str(1 / getDetailsToken['priceUSD'])
+                    totalin1bnb = str(1 / getDetailsToken['priceETH'])
                     usd_symbol = '1 USD = {total} {symbol}'.format(
                         symbol=tokenRes['symbol'], total=totalin1usd)
-                    bnb_symbol = '1 BNB = {total} {symbol}'.format(
+                    bnb_symbol = '1 BNB/ETH = {total} {symbol}'.format(
                         symbol=tokenRes['symbol'], total=totalin1bnb)
 
                     donate = 'Ủng hộ cha làm bot ly ☕\nBNB-Bep20|ETH: 0x441949e9F37A84A0E080Cc6E58247dEE9668D160'
 
-                    strOut = '<a href="tg://user?id={id_user}">Gửi sếp {user}</a> \n{namesymbol} \n{priceusd} \n{pricebnb} \n \n{total1usd} \n{total1bnb} \n \n{pancake} \n{poo} \n{dnt}'.format(
-                        namesymbol=token_symbol, priceusd=symbol_usd, pricebnb=symbol_bnb, symbol=tokenRes['symbol'], pancake=pancakeLink, poo=pooChart, total1usd=usd_symbol, total1bnb=bnb_symbol, user=username, id_user=userid, dnt=donate)
+                    strOut = '<a href="tg://user?id={id_user}">Gửi sếp {user}</a> \n{namesymbol} \n{priceusd} \n{pricebnb} \n \n{total1usd} \n{total1bnb} \n \n{buyl} \n{chart} \n{dnt}'.format(
+                        namesymbol=token_symbol, priceusd=symbol_usd, pricebnb=symbol_bnb, symbol=tokenRes['symbol'], buyl=urlBuy, chart=urlChart, total1usd=usd_symbol, total1bnb=bnb_symbol, user=username, id_user=userid, dnt=donate)
 
                     return strOut
                 else:

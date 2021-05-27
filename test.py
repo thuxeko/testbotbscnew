@@ -1,8 +1,8 @@
 import dbrun
 import checkToken
 
-symbol = 'nst'
-chain = 'bsc'
+symbol = 'shib'
+chain = 'eth'
 
 token = checkToken.getTokenWithSymbol(symbol, 1, 1, 1, chain)
 print(token)
