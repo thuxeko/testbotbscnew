@@ -111,6 +111,10 @@ def checkUserAdmin(userid):
     userAdmin = user_group.find_one({"user_id": userid})
     return userAdmin['administrator']
 
+def getUserGroup(chatid):
+    userGroup = user_group.find_one({"chat_id": chatid})
+    return userGroup
+
 
 def getConfig(key):
     configGet = config_data.find_one({"key": key})
