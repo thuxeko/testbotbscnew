@@ -33,12 +33,13 @@ def readConfigJson():
         return data
 
 
-def checkToken(contract, network):
-    url = "https://api.dex.guru/v1/tokens/{contract}-{network}"
+def checkToken(contract: str, network: str):
+    url = "https://api.dex.guru/v1/tokens/{contract}?network={network}"
     scraper = cloudscraper.create_scraper()
-    res = scraper.get(url.format(
-        contract=contract, network=network))
-    if res.status_code == 200:
-        return json.loads(res.text)
-    else:
-        return False
+    for x in range(5):
+        res = scraper.get(url.format(
+            contract=contract.lower(), network=network.lower()))
+        if res.status_code == 200:
+            return json.loads(res.text)
+        elif x == 4 and res.status_code != 200:
+            return False
