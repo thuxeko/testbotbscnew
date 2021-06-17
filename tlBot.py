@@ -28,15 +28,16 @@ logger = logging.getLogger(__name__)
 
 # region Get Token BSC
 def getToken(update: Update, context: CallbackContext) -> None:
+    resinsert = dbrun.insertToDb(
+        update.message.to_json(), 1)  # Insert user/group
+    print(resinsert)
+
     # Check user/group deactive
     checkUG = dbrun.getUserGroup(update.message.chat_id)
     if checkUG and checkUG['active']:
         token = update.message.text.split(' ')
         if token[1].strip():
             try:
-                resinsert =  dbrun.insertToDb(update.message.to_json(), 1) # Insert user/group
-                print(resinsert)
-
                 strOut = checkToken.getTokenWithSymbol(
                     token[1], 1, update.message.from_user['first_name'],
                     update.message.from_user['id'], 'bsc')
@@ -51,8 +52,8 @@ def getToken(update: Update, context: CallbackContext) -> None:
                 if typeChat == dataConfig['typeGroup']:
                     cvTime = int(time.mktime(mesoutbybot.date.timetuple()))
                     utils.updateChat(mesoutbybot['message_id'],
-                                    mesoutbybot['chat']['id'],
-                                    (cvTime + timeConfig))
+                                     mesoutbybot['chat']['id'],
+                                     (cvTime + timeConfig))
             except Exception as e:
                 dbrun.writeLog('getToken', str(e))
 
@@ -64,14 +65,15 @@ def getToken(update: Update, context: CallbackContext) -> None:
 
 def getContract(update: Update, context: CallbackContext) -> None:
     try:
+        resinsert = dbrun.insertToDb(
+            update.message.to_json(), 1)  # Insert user/group
+        print(resinsert)
+
         # Check user/group deactive
         checkUG = dbrun.getUserGroup(update.message.chat_id)
         if checkUG and checkUG['active']:
             token = update.message.text.split(' ')
             if token[1].strip():
-                resinsert =  dbrun.insertToDb(update.message.to_json(), 1) # Insert user/group
-                print(resinsert)
-
                 strOut = checkToken.getTokenWithSymbol(
                     token[1], 2, update.message.from_user['first_name'],
                     update.message.from_user['id'], 'bsc')
@@ -82,10 +84,10 @@ def getContract(update: Update, context: CallbackContext) -> None:
                 if typeChat == dataConfig['typeGroup']:
                     cvTime = int(time.mktime(mesoutbybot.date.timetuple()))
                     utils.updateChat(mesoutbybot['message_id'],
-                                    mesoutbybot['chat']['id'], (cvTime + timeConfig))
+                                     mesoutbybot['chat']['id'], (cvTime + timeConfig))
 
                     utils.updateChat(update.message.message_id,
-                                    update.message.chat_id, (cvTime + timeConfig))
+                                     update.message.chat_id, (cvTime + timeConfig))
             else:
                 update.message.reply_text("Sai câu lệnh")
         else:
@@ -94,52 +96,55 @@ def getContract(update: Update, context: CallbackContext) -> None:
         dbrun.writeLog('getContract', str(e))
 # endregion
 
-#region Get Token ETH
+# region Get Token ETH
+
+
 def getTokenETH(update: Update, context: CallbackContext) -> None:
     try:
+        resinsert = dbrun.insertToDb(
+            update.message.to_json(), 1)  # Insert user/group
+        print(resinsert)
+
         # Check user/group deactive
         checkUG = dbrun.getUserGroup(update.message.chat_id)
         if checkUG and checkUG['active']:
             token = update.message.text.split(' ')
             if token[1].strip():
-                
-                    resinsert =  dbrun.insertToDb(update.message.to_json(), 1) # Insert user/group
-                    print(resinsert)
+                strOut = checkToken.getTokenWithSymbol(
+                    token[1], 1, update.message.from_user['first_name'],
+                    update.message.from_user['id'], 'eth')
 
-                    strOut = checkToken.getTokenWithSymbol(
-                        token[1], 1, update.message.from_user['first_name'],
-                        update.message.from_user['id'], 'eth')
+                mesoutbybot = bot.send_message(
+                    chat_id=update.effective_message.chat_id,
+                    text=strOut,
+                    parse_mode='HTML')
 
-                    mesoutbybot = bot.send_message(
-                        chat_id=update.effective_message.chat_id,
-                        text=strOut,
-                        parse_mode='HTML')
-
-                    update.message.delete()
-                    typeChat = mesoutbybot['chat']['type']
-                    if typeChat == dataConfig['typeGroup']:
-                        cvTime = int(time.mktime(mesoutbybot.date.timetuple()))
-                        utils.updateChat(mesoutbybot['message_id'],
-                                        mesoutbybot['chat']['id'],
-                                        (cvTime + timeConfig))
+                update.message.delete()
+                typeChat = mesoutbybot['chat']['type']
+                if typeChat == dataConfig['typeGroup']:
+                    cvTime = int(time.mktime(mesoutbybot.date.timetuple()))
+                    utils.updateChat(mesoutbybot['message_id'],
+                                     mesoutbybot['chat']['id'],
+                                     (cvTime + timeConfig))
             else:
                 update.message.reply_text("Sai câu lệnh")
         else:
             update.message.reply_text("Đóng họ đê!!!!")
     except Exception as e:
-            dbrun.writeLog('getTokenETH', str(e))
+        dbrun.writeLog('getTokenETH', str(e))
 
 
 def getContractETH(update: Update, context: CallbackContext) -> None:
     try:
+        resinsert = dbrun.insertToDb(
+            update.message.to_json(), 1)  # Insert user/group
+        print(resinsert)
+
         # Check user/group deactive
         checkUG = dbrun.getUserGroup(update.message.chat_id)
         if checkUG and checkUG['active']:
             token = update.message.text.split(' ')
             if token[1].strip():
-                resinsert =  dbrun.insertToDb(update.message.to_json(), 1) # Insert user/group
-                print(resinsert)
-
                 strOut = checkToken.getTokenWithSymbol(
                     token[1], 2, update.message.from_user['first_name'],
                     update.message.from_user['id'], 'eth')
@@ -150,19 +155,20 @@ def getContractETH(update: Update, context: CallbackContext) -> None:
                 if typeChat == dataConfig['typeGroup']:
                     cvTime = int(time.mktime(mesoutbybot.date.timetuple()))
                     utils.updateChat(mesoutbybot['message_id'],
-                                    mesoutbybot['chat']['id'], (cvTime + timeConfig))
+                                     mesoutbybot['chat']['id'], (cvTime + timeConfig))
 
                     utils.updateChat(update.message.message_id,
-                                    update.message.chat_id, (cvTime + timeConfig))
+                                     update.message.chat_id, (cvTime + timeConfig))
             else:
                 update.message.reply_text("Sai câu lệnh")
         else:
             update.message.reply_text("Đóng họ đê!!!!")
     except Exception as e:
         dbrun.writeLog('getContractETH', str(e))
-#endregion
+# endregion
 
-#region Add Token
+# region Add Token
+
 def addTokenBSC(update: Update, context: CallbackContext) -> None:
     try:
         # Check User
@@ -195,9 +201,11 @@ def addTokenETH(update: Update, context: CallbackContext) -> None:
             update.message.reply_text('Phắn đê bạn êi')
     except Exception as e:
         dbrun.writeLog('addTokenETH', str(e))
-#endregion
+# endregion
 
 # region An xin
+
+
 def setWallet(update: Update, _: CallbackContext) -> int:
     typeChat = update.message['chat']['type']
     if typeChat == dataConfig['typePerson']:
@@ -252,6 +260,7 @@ def anxin(update: Update, context: CallbackContext) -> None:
 
 # region Other
 
+
 def infoBot(update: Update, context: CallbackContext) -> None:
     # Check user/group deactive
     checkUG = dbrun.getUserGroup(update.message.chat_id)
@@ -261,6 +270,7 @@ def infoBot(update: Update, context: CallbackContext) -> None:
         )
     else:
         update.message.reply_text("Đóng họ đê!!!!")
+
 
 def checkGas(update: Update, context: CallbackContext) -> None:
     text_out = dbrun.checkGasEth()
@@ -278,6 +288,7 @@ def checkGas(update: Update, context: CallbackContext) -> None:
 def error(update: Update, context: CallbackContext) -> None:
     update.message.reply_text(update.message.text)
 # endregion
+
 
 def main():
     try:

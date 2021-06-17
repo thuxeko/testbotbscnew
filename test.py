@@ -15,9 +15,10 @@ chain = 'bsc'
 url = "https://api.dex.guru/v1/tokens/{contract}?network={network}"
 scraper = cloudscraper.create_scraper()
 for x in range(5):
-    print(x)
-#   res = scraper.get(url.format(
-#         contract=symbol.lower(), network=chain))
-#   if res.status_code == 200:
-#         print(json.loads(res.text))
-#         break
+    res = scraper.get(url.format(
+        contract=symbol.lower(), network=chain))
+    if res.status_code == 200:
+        print(json.loads(res.text))
+        break
+    else:
+        continue

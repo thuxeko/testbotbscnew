@@ -32,7 +32,7 @@ def insertToDb(item: str, typeTb: int, network: str = None):
                     'user_name': item_json['from']['username'] if item_json['chat']['type'] == 'private' else None,
                     'name_user': item_json['from']['first_name'] if item_json['chat']['type'] == 'private' else None,
                     'administrator': False,
-                    'active': True
+                    'active': True if item_json['chat']['type'] == 'private' else False
                 }
 
                 user_group.insert_one(item_insert)
