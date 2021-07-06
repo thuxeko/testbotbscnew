@@ -25,6 +25,7 @@ def insertToDb(item: str, typeTb: int, network: str = None):
             objCheck = user_group.find_one(
                 {"chat_id": item_json['chat']['id']})  # Check Exist
             print(2)
+            print(objCheck)
             if not objCheck:
                 item_insert = {
                     'type': 1 if item_json['chat']['type'] == 'private' else 2,
