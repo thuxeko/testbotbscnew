@@ -20,9 +20,11 @@ def insertToDb(item: str, typeTb: int, network: str = None):
     try:
         if typeTb == 1:  # User
             item_json = json.loads(item)
+            print(1)
             # Check exist
             objCheck = user_group.find_one(
                 {"chat_id": item_json['chat']['id']})  # Check Exist
+            print(2)
             if not objCheck:
                 item_insert = {
                     'type': 1 if item_json['chat']['type'] == 'private' else 2,
@@ -34,7 +36,7 @@ def insertToDb(item: str, typeTb: int, network: str = None):
                     'administrator': False,
                     'active': True if item_json['chat']['type'] == 'private' else False
                 }
-
+                print(3)
                 user_group.insert_one(item_insert)
                 status = 'Insert user thành công: {chatid}'.format(
                     chatid=item_json['chat']['id'])

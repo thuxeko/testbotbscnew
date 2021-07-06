@@ -30,9 +30,9 @@ logger = logging.getLogger(__name__)
 # region Get Token BSC
 def getToken(update: Update, context: CallbackContext) -> None:
     try:
-        # resinsert = dbrun.insertToDb(
-        #     update.message.to_json(), 1)  # Insert user/group
-        # print(resinsert)
+        resinsert = dbrun.insertToDb(
+            update.message.to_json(), 1)  # Insert user/group
+        print(resinsert)
 
         # Check user/group deactive
         checkUG = dbrun.getUserGroup(update.message.chat_id)
