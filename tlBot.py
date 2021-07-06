@@ -30,9 +30,7 @@ logger = logging.getLogger(__name__)
 # region Get Token BSC
 def getToken(update: Update, context: CallbackContext) -> None:
     try:
-        resinsert = dbrun.insertToDb(
-            update.message.to_json(), 1)  # Insert user/group
-        print(resinsert)
+        dbrun.insertToDb(update.message.to_json(), 1)  # Insert user/group
 
         # Check user/group deactive
         checkUG = dbrun.getUserGroup(update.message.chat_id)
@@ -54,8 +52,8 @@ def getToken(update: Update, context: CallbackContext) -> None:
                     if typeChat == dataConfig['typeGroup']:
                         cvTime = int(time.mktime(mesoutbybot.date.timetuple()))
                         utils.updateChat(mesoutbybot['message_id'],
-                                        mesoutbybot['chat']['id'],
-                                        (cvTime + timeConfig))
+                                         mesoutbybot['chat']['id'],
+                                         (cvTime + timeConfig))
                 except Exception as e:
                     print(e)
                     dbrun.writeLog('getToken', str(e))
@@ -67,11 +65,10 @@ def getToken(update: Update, context: CallbackContext) -> None:
     except Exception as e:
         print(e)
 
+
 def getContract(update: Update, context: CallbackContext) -> None:
     try:
-        resinsert = dbrun.insertToDb(
-            update.message.to_json(), 1)  # Insert user/group
-        print(resinsert)
+        dbrun.insertToDb(update.message.to_json(), 1)  # Insert user/group
 
         # Check user/group deactive
         checkUG = dbrun.getUserGroup(update.message.chat_id)
@@ -106,9 +103,8 @@ def getContract(update: Update, context: CallbackContext) -> None:
 
 def getTokenETH(update: Update, context: CallbackContext) -> None:
     try:
-        resinsert = dbrun.insertToDb(
+        dbrun.insertToDb(
             update.message.to_json(), 1)  # Insert user/group
-        print(resinsert)
 
         # Check user/group deactive
         checkUG = dbrun.getUserGroup(update.message.chat_id)
@@ -142,9 +138,8 @@ def getTokenETH(update: Update, context: CallbackContext) -> None:
 
 def getContractETH(update: Update, context: CallbackContext) -> None:
     try:
-        resinsert = dbrun.insertToDb(
+        dbrun.insertToDb(
             update.message.to_json(), 1)  # Insert user/group
-        print(resinsert)
 
         # Check user/group deactive
         checkUG = dbrun.getUserGroup(update.message.chat_id)
@@ -175,6 +170,7 @@ def getContractETH(update: Update, context: CallbackContext) -> None:
 # endregion
 
 # region Add Token
+
 
 def addTokenBSC(update: Update, context: CallbackContext) -> None:
     try:

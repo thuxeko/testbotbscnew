@@ -36,10 +36,9 @@ def insertToDb(item: str, typeTb: int, network: str = None):
                     'active': True if item_json['chat']['type'] == 'private' else False
                 }
                 user_group.insert_one(item_insert)
-                status = 'Insert user thành công: {chatid}'.format(
-                    chatid=item_json['chat']['id'])
+                print('Insert user thành công')
             else:
-                status = 'Bỏ qua bản ghi tồn tại'
+                print('Bỏ qua bản ghi tồn tại')
         elif typeTb == 2:  # Token
             objCheck = token_list.find_one(
                 {"contract": item, 'network': network})  # Check Exist DB
@@ -57,24 +56,18 @@ def insertToDb(item: str, typeTb: int, network: str = None):
 
                     token_list.insert_one(item_insert)
 
-                    status = 'Insert token thành công: {contract}'.format(
-                        contract=item)
+                    print('Insert token thành công')
                 else:
-                    status = 'Token không tồn tại: {contract}'.format(
-                        contract=item)
+                    print('Token không tồn tại')
             else:
-                status = 'Contract đã tồn tại: {contract}'.format(
-                    contract=item)
-
-        return status
+                print('Contract đã tồn tại')
     except Exception as e:
         print(e)
         logs_data.insert_one({
             'exception': e,
             'function': 'insertToDb'
         })
-        status = 'Có lỗi xảy ra. Vui lòng check log'
-        return status
+        print('Có lỗi xảy ra. Vui lòng check log')
 
 
 def writeLog(function, ex):
