@@ -13,6 +13,7 @@ import dbrun
 TOKEN = dbrun.getConfig('bot_token')
 URL_BOT = dbrun.getConfig('URL')
 dataConfig = utils.readConfigJson()
+CERT = '/home/cer/PUBLIC.pem'
 
 bot = Bot(TOKEN)
 timeConfig = 60
@@ -324,11 +325,10 @@ def main():
 
         # Webhook start bot
         updater.start_webhook(listen="0.0.0.0",
-                              port=8443,
+                              port=5000,
                               url_path=TOKEN,
-                              key='private.key',
-                              cert='cert.pem',
-                              webhook_url=URL_BOT + TOKEN)
+                              webhook_url=f'https://{URL_BOT}{TOKEN}',
+                              cert=CERT)
         updater.idle()
     except Exception as e:
         print(e)
