@@ -35,9 +35,9 @@ def insertToDb(item: str, typeTb: int, network: str = None):
                     'active': True if item_json['chat']['type'] == 'private' else False
                 }
                 user_group.insert_one(item_insert)
-                print('Insert user thành công')
+                print('Insert user thanh cong')
             else:
-                print('Bỏ qua bản ghi tồn tại')
+                print('Ban ghi da ton tai')
         elif typeTb == 2:  # Token
             objCheck = token_list.find_one(
                 {"contract": item, 'network': network})  # Check Exist DB
@@ -55,18 +55,18 @@ def insertToDb(item: str, typeTb: int, network: str = None):
 
                     token_list.insert_one(item_insert)
 
-                    print('Insert token thành công')
+                    print('Insert token thanh cong')
                 else:
-                    print('Token không tồn tại')
+                    print('Token khong ton tai')
             else:
-                print('Contract đã tồn tại')
+                print('Contract da ton tai')
     except Exception as e:
         print(e)
-        # logs_data.insert_one({
-        #     'exception': e,
-        #     'function': 'insertToDb'
-        # })
-        print('Có lỗi xảy ra. Vui lòng check log')
+        logs_data.insert_one({
+            'exception': e,
+            'function': 'insertToDb'
+        })
+        print('Co loi xay ra. Vui long check log')
 
 
 def writeLog(function, ex):
@@ -92,11 +92,9 @@ def insertSpeed(contract: str, symbol: str, name: str, network: str):
 
         token_list.insert_one(item_insert)
 
-        return 'Insert token thành công: {contract}'.format(
-            contract=contract)
+        return 'Insert token thanh cong'
     else:
-        return 'Contract đã tồn tại: {contract}'.format(
-            contract=contract)
+        return 'Contract da ton tai'
 
 
 def checkUserAdmin(userid):
@@ -185,7 +183,7 @@ def checkGasEth():
 
         return text_out
     else:
-        return 'Lỗi rồi sếp ơi :(('
+        return 'Loi roi sep oi :(('
 
 
 def calculatorPrice(gaslimit, gwei, ethprice):
