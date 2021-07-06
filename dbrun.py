@@ -37,7 +37,7 @@ def insertToDb(item: str, typeTb: int, network: str = None):
                 user_group.insert_one(item_insert)
                 print('Insert user thanh cong')
             else:
-                print('Bản ghi đã tồn tại')
+                print('Ban ghi da ton tai')
         elif typeTb == 2:  # Token
             objCheck = token_list.find_one(
                 {"contract": item, 'network': network})  # Check Exist DB
