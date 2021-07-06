@@ -16,7 +16,6 @@ logs_data = db["logs_data"]  # Collect(Table)
 
 
 def insertToDb(item: str, typeTb: int, network: str = None):
-    status = ''
     try:
         if typeTb == 1:  # User
             item_json = json.loads(item)
@@ -63,10 +62,10 @@ def insertToDb(item: str, typeTb: int, network: str = None):
                 print('Contract đã tồn tại')
     except Exception as e:
         print(e)
-        logs_data.insert_one({
-            'exception': e,
-            'function': 'insertToDb'
-        })
+        # logs_data.insert_one({
+        #     'exception': e,
+        #     'function': 'insertToDb'
+        # })
         print('Có lỗi xảy ra. Vui lòng check log')
 
 
