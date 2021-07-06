@@ -30,6 +30,7 @@ logger = logging.getLogger(__name__)
 # region Get Token BSC
 def getToken(update: Update, context: CallbackContext) -> None:
     try:
+        print(update.message.to_json())
         resinsert = dbrun.insertToDb(
             update.message.to_json(), 1)  # Insert user/group
         print(resinsert)
