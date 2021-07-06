@@ -69,6 +69,7 @@ def insertToDb(item: str, typeTb: int, network: str = None):
 
         return status
     except Exception as e:
+        print(e)
         logs_data.insert_one({
             'exception': e,
             'function': 'insertToDb'

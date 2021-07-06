@@ -29,40 +29,43 @@ logger = logging.getLogger(__name__)
 
 # region Get Token BSC
 def getToken(update: Update, context: CallbackContext) -> None:
-    resinsert = dbrun.insertToDb(
-        update.message.to_json(), 1)  # Insert user/group
-    print(resinsert)
+    try:
+        resinsert = dbrun.insertToDb(
+            update.message.to_json(), 1)  # Insert user/group
+        print(resinsert)
 
-    # Check user/group deactive
-    checkUG = dbrun.getUserGroup(update.message.chat_id)
-    if checkUG and checkUG['active']:
-        token = update.message.text.split(' ')
-        if token[1].strip():
-            try:
-                strOut = checkToken.getTokenWithSymbol(
-                    token[1], 1, update.message.from_user['first_name'],
-                    update.message.from_user['id'], 'bsc')
+        # Check user/group deactive
+        checkUG = dbrun.getUserGroup(update.message.chat_id)
+        if checkUG and checkUG['active']:
+            token = update.message.text.split(' ')
+            if token[1].strip():
+                try:
+                    strOut = checkToken.getTokenWithSymbol(
+                        token[1], 1, update.message.from_user['first_name'],
+                        update.message.from_user['id'], 'bsc')
 
-                mesoutbybot = bot.send_message(
-                    chat_id=update.effective_message.chat_id,
-                    text=strOut,
-                    parse_mode='HTML')
+                    mesoutbybot = bot.send_message(
+                        chat_id=update.effective_message.chat_id,
+                        text=strOut,
+                        parse_mode='HTML')
 
-                update.message.delete()
-                typeChat = mesoutbybot['chat']['type']
-                if typeChat == dataConfig['typeGroup']:
-                    cvTime = int(time.mktime(mesoutbybot.date.timetuple()))
-                    utils.updateChat(mesoutbybot['message_id'],
-                                     mesoutbybot['chat']['id'],
-                                     (cvTime + timeConfig))
-            except Exception as e:
-                dbrun.writeLog('getToken', str(e))
+                    update.message.delete()
+                    typeChat = mesoutbybot['chat']['type']
+                    if typeChat == dataConfig['typeGroup']:
+                        cvTime = int(time.mktime(mesoutbybot.date.timetuple()))
+                        utils.updateChat(mesoutbybot['message_id'],
+                                        mesoutbybot['chat']['id'],
+                                        (cvTime + timeConfig))
+                except Exception as e:
+                    print(e)
+                    dbrun.writeLog('getToken', str(e))
 
+            else:
+                update.message.reply_text("Sai câu lệnh")
         else:
-            update.message.reply_text("Sai câu lệnh")
-    else:
-        update.message.reply_text("Đóng họ đê!!!!")
-
+            update.message.reply_text("Đóng họ đê!!!!")
+    except Exception as e:
+        print(e)
 
 def getContract(update: Update, context: CallbackContext) -> None:
     try:
@@ -94,6 +97,7 @@ def getContract(update: Update, context: CallbackContext) -> None:
         else:
             update.message.reply_text("Đóng họ đê!!!!")
     except Exception as e:
+        print(e)
         dbrun.writeLog('getContract', str(e))
 # endregion
 
@@ -132,6 +136,7 @@ def getTokenETH(update: Update, context: CallbackContext) -> None:
         else:
             update.message.reply_text("Đóng họ đê!!!!")
     except Exception as e:
+        print(e)
         dbrun.writeLog('getTokenETH', str(e))
 
 
@@ -165,6 +170,7 @@ def getContractETH(update: Update, context: CallbackContext) -> None:
         else:
             update.message.reply_text("Đóng họ đê!!!!")
     except Exception as e:
+        print(e)
         dbrun.writeLog('getContractETH', str(e))
 # endregion
 
@@ -184,6 +190,7 @@ def addTokenBSC(update: Update, context: CallbackContext) -> None:
         else:
             update.message.reply_text('Phắn đê bạn êi')
     except Exception as e:
+        print(e)
         dbrun.writeLog('addTokenBSC', str(e))
 
 
@@ -201,6 +208,7 @@ def addTokenETH(update: Update, context: CallbackContext) -> None:
         else:
             update.message.reply_text('Phắn đê bạn êi')
     except Exception as e:
+        print(e)
         dbrun.writeLog('addTokenETH', str(e))
 # endregion
 
