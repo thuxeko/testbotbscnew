@@ -327,7 +327,7 @@ def main():
         updater.start_webhook(listen="0.0.0.0",
                               port=5000,
                               url_path=TOKEN,
-                              webhook_url=f'https://{URL_BOT}{TOKEN}',
+                              webhook_url=f'https://{URL_BOT}/{TOKEN}',
                               cert=CERT)
         updater.idle()
     except Exception as e:
