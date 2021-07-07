@@ -289,6 +289,37 @@ def checkGas(update: Update, context: CallbackContext) -> None:
         utils.updateChat(update.message.message_id,
                          update.message.chat_id, (cvTime + timeConfig))
 
+def checkContract(update: Update, context: CallbackContext) -> None:
+    try:
+        dbrun.insertToDb(
+            update.message.to_json(), 1)  # Insert user/group
+
+        # Check user/group deactive
+        checkUG = dbrun.getUserGroup(update.message.chat_id)
+        if checkUG and checkUG['active']:
+            token = update.message.text.split(' ')
+            if token[1].strip():
+                strOut = checkToken.crawlWithContract(token[1])
+
+                mesoutbybot = bot.send_message(
+                    chat_id=update.effective_message.chat_id,
+                    text=strOut,
+                    parse_mode='HTML')
+
+                update.message.delete()
+                typeChat = mesoutbybot['chat']['type']
+                if typeChat == dataConfig['typeGroup']:
+                    cvTime = int(time.mktime(mesoutbybot.date.timetuple()))
+                    utils.updateChat(mesoutbybot['message_id'],
+                                     mesoutbybot['chat']['id'],
+                                     (cvTime + timeConfig))
+            else:
+                update.message.reply_text("Sai câu lệnh")
+        else:
+            update.message.reply_text("Đóng họ đê!!!!")
+    except Exception as e:
+        print(e)
+        dbrun.writeLog('checkContract', str(e))
 
 def error(update: Update, context: CallbackContext) -> None:
     update.message.reply_text(update.message.text)
