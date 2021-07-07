@@ -17,7 +17,6 @@ bot = Bot(TOKEN)
 
 def dltChat():
     try:
-        print('Tiến hành xoá chat')
         with open('delete_save.json', 'r') as dl_file:
             data = json.load(dl_file)
             time_now = int(time.time())
@@ -40,6 +39,7 @@ def dltChat():
 
             utils.save_delete_file(lst_save)
     except Exception as e:
+        print(e)
         dbrun.writeLog('dltChat', str(e))
 
 
