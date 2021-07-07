@@ -345,6 +345,7 @@ def main():
         dp.add_handler(CommandHandler("info", infoBot))
         dp.add_handler(CommandHandler("anxin", anxin))
         dp.add_handler(CommandHandler("gas", checkGas))
+        dp.add_handler(CommandHandler("check", checkContract))
 
         conv_handler = ConversationHandler(
             entry_points=[CommandHandler('setwl', setWallet)],
